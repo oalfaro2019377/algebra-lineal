@@ -21,6 +21,7 @@
     <div class="page-head__main">
       <h1 class="t-display">Espacios vectoriales <em class="accent">R² y R³</em></h1>
       <p class="t-lead">Unity y Unreal mueven cada objeto de la escena con cinco operaciones vectoriales. Las seguimos en un paquete que sale de una banda de empaque, cae y rebota contra el piso del almacén.</p>
+      <p class="t-small" style="max-width: 70ch">Suma, producto por escalar, producto punto y normalización valen igual en R² y en R³. El producto cruz solo existe en R³ — por eso el ejemplo del paquete (movimiento, rebote y la vista 3D) también vive en R³, donde sí hay una tercera dimensión hacia la cual apuntar.</p>
     </div>
   </div>
 
@@ -33,19 +34,19 @@
     </div>
     <div class="grid-auto" style="--min: 380px">
       <article class="card">
-        <span class="label">01 · Suma</span>
+        <span class="label">01 · Suma · R² y R³</span>
         <span class="t-math" style="font-size: 32px">u + v = (u<sub>1</sub>+v<sub>1</sub>, u<sub>2</sub>+v<sub>2</sub>, u<sub>3</sub>+v<sub>3</sub>)</span>
         <p>Combina fuerzas: la velocidad del paquete más el empuje de la banda da su velocidad real.</p>
         <div class="card__foot"><span>Unity · a + b</span><span>/</span><span>Unreal · A + B</span></div>
       </article>
       <article class="card">
-        <span class="label">02 · Producto por escalar</span>
+        <span class="label">02 · Producto por escalar · R² y R³</span>
         <span class="t-math" style="font-size: 32px">k·v = (k v<sub>1</sub>, k v<sub>2</sub>, k v<sub>3</sub>)</span>
         <p>Escala sin girar: multiplicar la velocidad por Δt da cuánto se desplaza el objeto en un cuadro.</p>
         <div class="card__foot"><span>Unity · v * k</span><span>/</span><span>Unreal · V * k</span></div>
       </article>
       <article class="card">
-        <span class="label">03 · Producto punto</span>
+        <span class="label">03 · Producto punto · R² y R³</span>
         <span class="t-math" style="font-size: 32px">u·v = u<sub>1</sub>v<sub>1</sub> + u<sub>2</sub>v<sub>2</sub> + u<sub>3</sub>v<sub>3</sub> = |u||v| cos θ</span>
         <p>Mide alineación: si es negativo, el paquete se mueve hacia el piso y hay que calcular el rebote.</p>
         <div class="card__foot"><span>Unity · Vector3.Dot</span><span>/</span><span>Unreal · FVector::DotProduct</span></div>
@@ -57,7 +58,7 @@
         <div class="card__foot"><span>Unity · Vector3.Cross</span><span>/</span><span>Unreal · FVector::CrossProduct</span></div>
       </article>
       <article class="card card--accent">
-        <span class="label">05 · Normalización</span>
+        <span class="label">05 · Normalización · R² y R³</span>
         <span class="t-math" style="font-size: 32px">v̂ = v / |v|,  |v̂| = 1</span>
         <p>Conserva solo la dirección. La fórmula de reflexión exige una normal unitaria n̂.</p>
         <div class="card__foot"><span>Unity · v.normalized</span><span>/</span><span>Unreal · V.GetSafeNormal()</span></div>
@@ -69,7 +70,7 @@
     <div class="section">
       <div class="section-head">
         <div class="section-head__title">
-          <span class="label">2 — Movimiento</span>
+          <span class="label">2 — Movimiento · R³</span>
           <h2 class="t-h2" style="font-size: var(--t-h3)">Ecuación de posición</h2>
         </div>
       </div>
@@ -87,7 +88,7 @@
     <div class="section">
       <div class="section-head">
         <div class="section-head__title">
-          <span class="label">3 — Rebote</span>
+          <span class="label">3 — Rebote · R³</span>
           <h2 class="t-h2" style="font-size: var(--t-h3)">Fórmula de reflexión</h2>
         </div>
       </div>
@@ -114,7 +115,7 @@
   <section class="section">
     <div class="section-head">
       <div class="section-head__title">
-        <span class="label">4 — Ver</span>
+        <span class="label">4 — Ver · R³</span>
         <h2 class="t-h2">La trayectoria del paquete</h2>
       </div>
     </div>
