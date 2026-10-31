@@ -11,42 +11,174 @@
 </head>
 <body data-active-section="2">
 
-<main class="container empty">
+<main class="container page">
 
-  <div class="empty__main">
-    <span class="label">Pestaña 02 / 04 · se presenta fuera del sitio</span>
-    <h1 class="t-display">Matrices y<br><em>operaciones</em></h1>
-    <p class="t-lead" style="max-width: 620px">Esta parte de la exposición se trabaja en vivo en Desmos Matrix Calculator, donde cada operación se ve celda por celda. Al terminar, regresamos aquí para resolver el sistema de la pestaña 03.</p>
-    <div class="empty__actions">
-      <a class="btn btn--primary" href="https://www.desmos.com/matrix" target="_blank" rel="noopener">Abrir Desmos Matrix
-        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L3 13"/></svg>
+  <div class="page-head">
+    <div class="page-head__meta">
+      <span class="label">Pestaña 02 / 04</span>
+      <span class="label" style="color: var(--ink-2)">Caso · transformaciones geométricas</span>
+      <a class="btn btn--icon" href="https://www.desmos.com/matrix" target="_blank" rel="noopener" aria-label="Abrir Desmos Matrix" title="Abrir Desmos Matrix" style="align-self: flex-start">
+        <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L3 13"/></svg>
       </a>
-      <a class="btn" href="seccion3.html">Ir a 03 Sistemas</a>
+    </div>
+    <div class="page-head__main">
+      <h1 class="t-display">Matrices y <em>operaciones</em></h1>
+      <p class="t-lead">Suma, producto, determinante, transpuesta, adjunta e inversa de matrices 2×2 — y cómo esas operaciones son, al mismo tiempo, escalas, rotaciones y reflexiones de figuras en el plano.</p>
     </div>
   </div>
 
-  <figure class="empty__figure" aria-hidden="true">
-    <div style="display: flex; align-items: center; gap: 20px">
-      <span class="t-math" style="font-size: 64px">A</span>
-      <span class="t-h2" style="color: var(--ink-3)">=</span>
-      <div class="matrix">
-        <span class="matrix__bracket matrix__bracket--l"></span>
-        <div class="matrix__cells">
-          <span>1</span><span>4</span><span>2</span>
-          <span>2</span><span>1</span><span>3</span>
-          <span style="color: var(--ink-3)">1</span><span style="color: var(--ink-3)">2</span><span style="color: var(--ink-3)">1</span>
-        </div>
-        <span class="matrix__bracket matrix__bracket--r"></span>
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">1 — Definir</span>
+        <h2 class="t-h2">Operaciones con A = [[a,b],[c,d]]</h2>
       </div>
     </div>
-    <figcaption class="t-small" style="border-top: 1px solid var(--line); padding-top: 14px">Matriz de coeficientes del clúster HPC (pestaña 03): Cores, VRAM y Amperios por tipo de nodo. Lista para copiar en Desmos.</figcaption>
-  </figure>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th>Operación</th><th>Definición</th><th>Fórmula en 2×2</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Suma</td><td>Se suman las entradas correspondientes</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">A+B = [[a+e,b+f],[c+g,d+h]]</td></tr>
+          <tr><td>Mult. escalar</td><td>Cada entrada se multiplica por k</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">k·A = [[ka,kb],[kc,kd]]</td></tr>
+          <tr><td>Producto</td><td>Fila de la primera por columna de la segunda</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">A·B = [[ae+bg,af+bh],[ce+dg,cf+dh]]</td></tr>
+          <tr><td>Determinante</td><td>Número que mide el cambio de área</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">det(A) = ad − bc</td></tr>
+          <tr><td>Transpuesta</td><td>Se intercambian filas por columnas</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">Aᵀ = [[a,c],[b,d]]</td></tr>
+          <tr><td>Adjunta</td><td>Transpuesta de la matriz de cofactores</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">adj(A) = [[d,−b],[−c,a]]</td></tr>
+          <tr><td>Inversa</td><td>Existe solo si det(A) ≠ 0</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">A⁻¹ = adj(A) / det(A)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="t-small" style="max-width: 70ch">El producto no es conmutativo (A·B ≠ B·A en general), A·A⁻¹ = A⁻¹·A = I, y si det(A) = 0 la matriz no tiene inversa: la transformación aplasta el plano sobre una recta o un punto.</p>
+  </section>
 
-  <ol class="numbered-list">
-    <li><span class="numbered-list__n">01</span><span class="numbered-list__title">Abrir la calculadora</span><span class="numbered-list__desc">Se proyecta Desmos en una pestaña nueva del navegador.</span></li>
-    <li><span class="numbered-list__n">02</span><span class="numbered-list__title">Operar en vivo</span><span class="numbered-list__desc">El equipo define las matrices y muestra cada operación.</span></li>
-    <li><span class="numbered-list__n">03</span><span class="numbered-list__title">Volver al sitio</span><span class="numbered-list__desc">Continuamos con el sistema de ecuaciones 3 × 3.</span></li>
-  </ol>
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">2 — Interpretar</span>
+        <h2 class="t-h2">Cada matriz, una transformación del plano</h2>
+      </div>
+    </div>
+    <p style="max-width: 60ch">Un punto P = (x, y) se escribe como vector columna; la transformación lineal se aplica multiplicando P' = M·P.</p>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th>Transformación</th><th>Matriz M</th><th>Efecto</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Escala (sx, sy)</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">[[sx,0],[0,sy]]</td><td>Estira o comprime cada eje</td></tr>
+          <tr><td>Rotación de θ°</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">[[cosθ,−senθ],[senθ,cosθ]]</td><td>Gira alrededor del origen</td></tr>
+          <tr><td>Reflexión en eje x</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">[[1,0],[0,−1]]</td><td>Voltea la figura respecto al eje x</td></tr>
+          <tr><td>Cizalla horizontal (k)</td><td class="t-math" style="font-style: normal; font-family: var(--font-mono)">[[1,k],[0,1]]</td><td>Inclina la figura en x</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">3 — Resolver</span>
+        <h2 class="t-h2">Ejemplo: escala vs. rotación sobre un pentágono</h2>
+      </div>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <div class="step__lead">
+          <span class="step__num">1</span>
+          <div>
+            <h3 class="step__title">Datos</h3>
+            <p class="step__desc">A escala, B rota 90° antihorario, P es el punto de prueba.</p>
+          </div>
+        </div>
+        <pre class="step__math">A = [[2,0],[0,3]]   escala ×2 en x, ×3 en y
+B = [[0,−1],[1,0]]  rotación 90° antihorario
+P = (1, 2)   k = 2   figura: pentágono de área 3</pre>
+      </li>
+      <li class="step">
+        <div class="step__lead">
+          <span class="step__num">2</span>
+          <div>
+            <h3 class="step__title">Determinantes e inversas</h3>
+            <p class="step__desc">det(B) = 1: la rotación no cambia el área.</p>
+          </div>
+        </div>
+        <pre class="step__math">det(A) = 2·3 − 0·0 = 6         det(B) = 0·0 − (−1)·1 = 1
+A⁻¹ = [[1/2,0],[0,1/3]]        B⁻¹ = [[0,1],[−1,0]]
+A·A⁻¹ = I                       B·B⁻¹ = I</pre>
+      </li>
+      <li class="step">
+        <div class="step__lead">
+          <span class="step__num">3</span>
+          <div>
+            <h3 class="step__title">El producto no conmuta</h3>
+            <p class="step__desc">Mismo det(A·B) = det(B·A) = 6, pero matrices distintas.</p>
+          </div>
+        </div>
+        <pre class="step__math">A·B = [[0,−2],[3,0]]
+B·A = [[0,−3],[2,0]]
+A·B ≠ B·A</pre>
+      </li>
+      <li class="step">
+        <div class="step__lead">
+          <span class="step__num">4</span>
+          <div>
+            <h3 class="step__title">Transformando P = (1, 2)</h3>
+            <p class="step__desc">Rotar-y-luego-escalar no es lo mismo que escalar-y-luego-rotar.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>Transformación</th><th>Resultado</th></tr></thead>
+            <tbody>
+              <tr><td>A·P (escala)</td><td class="is-num">(2, 6)</td></tr>
+              <tr><td>B·P (rotación 90°)</td><td class="is-num">(−2, 1)</td></tr>
+              <tr><td>(A·B)·P (rota y luego escala)</td><td class="is-num">(−4, 3)</td></tr>
+              <tr><td>(B·A)·P (escala y luego rota)</td><td class="is-num">(−6, 2)</td></tr>
+              <tr><td>A⁻¹·(A·P) — vuelve al original</td><td class="is-num">(1, 2)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <div role="status" class="result">
+    <div class="result__text">
+      <span class="result__kicker">El orden importa</span>
+      <span class="result__sentence">det(A·B) = det(B·A) = 6, pero (A·B)·P ≠ (B·A)·P — rotar y luego escalar no es lo mismo que escalar y luego rotar.</span>
+    </div>
+    <div class="result__values"><span>(A·B)·P = (−4, 3)</span><span>(B·A)·P = (−6, 2)</span></div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">4 — Ver</span>
+        <h2 class="t-h2">El pentágono, transformado</h2>
+      </div>
+    </div>
+    <div class="grid-auto scan-gallery" style="--min: 280px">
+      <a class="scan-frame" href="assets/graphs/figura-1-escala.png" target="_blank" rel="noopener">
+        <img src="assets/graphs/figura-1-escala.png" alt="Figura 1: pentágono original y transformado por A (escala x2, y3)">
+        <span class="label scan-frame__caption">Figura 1 · Escala con A</span>
+      </a>
+      <a class="scan-frame" href="assets/graphs/figura-2-rotacion.png" target="_blank" rel="noopener">
+        <img src="assets/graphs/figura-2-rotacion.png" alt="Figura 2: pentágono original y transformado por B (rotación de 90°)">
+        <span class="label scan-frame__caption">Figura 2 · Rotación con B</span>
+      </a>
+      <a class="scan-frame" href="assets/graphs/figura-3-comparacion.png" target="_blank" rel="noopener">
+        <img src="assets/graphs/figura-3-comparacion.png" alt="Figura 3: comparación de las figuras transformadas por A·B y por B·A">
+        <span class="label scan-frame__caption">Figura 3 · A·B vs. B·A</span>
+      </a>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <span>← <a href="seccion1.html">01 Conjuntos</a></span>
+    <span>Siguiente → <a href="seccion3.html">03 Sistemas</a></span>
+  </footer>
 
 </main>
 

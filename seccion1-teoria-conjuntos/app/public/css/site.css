@@ -154,6 +154,26 @@
 .remote-btn:active { background: var(--surface-2); }
 .remote-btn--next { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .remote-btn--next:active { background: var(--accent-hover); border-color: var(--accent-hover); }
+.remote-btn--aux { flex: 0 0 auto; flex-direction: row; gap: 10px; padding: 16px; font-family: var(--font-ui); font-size: 15px; font-weight: 600; color: var(--ink-2); }
+
+/* Botón flotante que aparece en la laptop cuando se pide abrir Desmos
+   desde el control remoto (/control) y el navegador bloqueó la
+   ventana emergente automática — el presentador solo necesita darle
+   clic una vez (shared/slidenav.js). */
+.desmos-fallback {
+  position: fixed;
+  left: max(20px, env(safe-area-inset-left, 0px));
+  bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  z-index: 41;
+  animation: desmosPulse 1.6s ease-in-out infinite;
+}
+@keyframes desmosPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
+  50%      { box-shadow: 0 0 0 10px transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .desmos-fallback { animation: none; }
+}
 
 /* Vistas de animación (/vista-1 … /vista-4): título + descripción +
    un diagrama grande en bucle automático, sin cifras dentro del

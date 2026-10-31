@@ -45,6 +45,10 @@ app.post('/api/remote/prev', (req, res) => {
   remoteState = { seq: remoteState.seq + 1, dir: 'prev' };
   res.json(remoteState);
 });
+app.post('/api/remote/desmos', (req, res) => {
+  remoteState = { seq: remoteState.seq + 1, dir: 'desmos' };
+  res.json(remoteState);
+});
 
 function fmtSql(catA, catB) {
   return {

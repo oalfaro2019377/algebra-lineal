@@ -22,7 +22,7 @@
 
   // Nombre de archivo de la página actual, venga la URL como la sirve
   // GitHub Pages / un enlace normal (".../vista-1.html") o como la
-  // serví­a antes la ruta "limpia" de Express en local (".../vista-1",
+  // servía antes la ruta "limpia" de Express en local (".../vista-1",
   // ".../seccion-1", o "/" para la portada) — ambos formatos deben
   // encontrar la misma posición en SEQUENCE.
   function currentFile() {
@@ -86,6 +86,22 @@
     renderControls();
   }
 
+  // Botón "Abrir Desmos" que aparece en la laptop solo si el navegador
+  // bloqueó la ventana emergente automática pedida desde el teléfono
+  // (los navegadores solo permiten window.open() sin bloqueo dentro de
+  // un gesto directo del usuario — un toque en OTRO dispositivo no cuenta).
+  function showDesmosFallback() {
+    if (document.querySelector('.desmos-fallback')) return;
+    const a = document.createElement('a');
+    a.className = 'btn btn--primary desmos-fallback';
+    a.href = 'https://www.desmos.com/matrix';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = 'Abrir Desmos ↗';
+    a.addEventListener('click', () => a.remove());
+    document.body.appendChild(a);
+  }
+
   // Control remoto (/control, típicamente abierto en el teléfono):
   // sondea el mismo estado en memoria del servidor cada 400ms. Al
   // cargar, primero lee el seq actual sin actuar sobre él (si no,
@@ -104,10 +120,12 @@
           lastSeq = data.seq;
         } else if (data.seq !== lastSeq) {
           lastSeq = data.seq;
-          stopped = true; // la navegación va a destruir esta página de todos modos
-          if (data.dir === 'next') go(nextUrl);
-          else if (data.dir === 'prev') go(prevUrl);
-          return;
+          if (data.dir === 'next') { stopped = true; go(nextUrl); return; }
+          if (data.dir === 'prev') { stopped = true; go(prevUrl); return; }
+          if (data.dir === 'desmos') {
+            const w = window.open('https://www.desmos.com/matrix', '_blank', 'noopener');
+            if (!w) showDesmosFallback();
+          }
         }
       } catch (e) {
         // Sin servidor de control alcanzable (p. ej. abierto como archivo

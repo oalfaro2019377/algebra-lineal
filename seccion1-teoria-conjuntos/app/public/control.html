@@ -26,6 +26,11 @@
     <span>Siguiente</span>
     <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
+
+  <button type="button" class="remote-btn remote-btn--aux" id="btnDesmos" aria-label="Abrir Desmos en la laptop">
+    <svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Abrir Desmos</span>
+  </button>
 </main>
 
 <script>
@@ -44,6 +49,7 @@
 
   document.getElementById('btnPrev').addEventListener('click', () => send('prev'));
   document.getElementById('btnNext').addEventListener('click', () => send('next'));
+  document.getElementById('btnDesmos').addEventListener('click', () => send('desmos'));
 
   fetch('api/remote/state')
     .then(() => { statusEl.textContent = 'listo'; })
