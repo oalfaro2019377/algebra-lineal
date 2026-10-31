@@ -1,0 +1,333 @@
+{
+  "categorias": [
+    {
+      "categoria_id": 1,
+      "nombre": "Electrónica"
+    },
+    {
+      "categoria_id": 3,
+      "nombre": "Hogar"
+    },
+    {
+      "categoria_id": 2,
+      "nombre": "Ropa"
+    }
+  ],
+  "universo": {
+    "total": 20,
+    "clientes": [
+      {
+        "cliente_id": 1,
+        "nombre": "Juan Pérez"
+      },
+      {
+        "cliente_id": 2,
+        "nombre": "María López"
+      },
+      {
+        "cliente_id": 3,
+        "nombre": "Carlos Méndez"
+      },
+      {
+        "cliente_id": 4,
+        "nombre": "Ana Gómez"
+      },
+      {
+        "cliente_id": 5,
+        "nombre": "Luis Ramírez"
+      },
+      {
+        "cliente_id": 6,
+        "nombre": "Sofía Castillo"
+      },
+      {
+        "cliente_id": 7,
+        "nombre": "Pedro Herrera"
+      },
+      {
+        "cliente_id": 8,
+        "nombre": "Lucía Torres"
+      },
+      {
+        "cliente_id": 9,
+        "nombre": "Diego Morales"
+      },
+      {
+        "cliente_id": 10,
+        "nombre": "Valeria Cruz"
+      },
+      {
+        "cliente_id": 11,
+        "nombre": "Andrés Fuentes"
+      },
+      {
+        "cliente_id": 12,
+        "nombre": "Camila Rodríguez"
+      },
+      {
+        "cliente_id": 13,
+        "nombre": "Daniela Ortiz"
+      },
+      {
+        "cliente_id": 14,
+        "nombre": "Roberto Jiménez"
+      },
+      {
+        "cliente_id": 15,
+        "nombre": "Patricia Vásquez"
+      },
+      {
+        "cliente_id": 16,
+        "nombre": "Fernando Castro"
+      },
+      {
+        "cliente_id": 17,
+        "nombre": "Gabriela Soto"
+      },
+      {
+        "cliente_id": 18,
+        "nombre": "Mariana Luna"
+      },
+      {
+        "cliente_id": 19,
+        "nombre": "Jorge Paredes"
+      },
+      {
+        "cliente_id": 20,
+        "nombre": "Isabel Rojas"
+      }
+    ]
+  },
+  "clientesPorCategoria": {
+    "Electrónica": [
+      {
+        "cliente_id": 1,
+        "nombre": "Juan Pérez"
+      },
+      {
+        "cliente_id": 2,
+        "nombre": "María López"
+      },
+      {
+        "cliente_id": 3,
+        "nombre": "Carlos Méndez"
+      },
+      {
+        "cliente_id": 4,
+        "nombre": "Ana Gómez"
+      },
+      {
+        "cliente_id": 5,
+        "nombre": "Luis Ramírez"
+      },
+      {
+        "cliente_id": 6,
+        "nombre": "Sofía Castillo"
+      },
+      {
+        "cliente_id": 13,
+        "nombre": "Daniela Ortiz"
+      },
+      {
+        "cliente_id": 14,
+        "nombre": "Roberto Jiménez"
+      },
+      {
+        "cliente_id": 15,
+        "nombre": "Patricia Vásquez"
+      },
+      {
+        "cliente_id": 16,
+        "nombre": "Fernando Castro"
+      },
+      {
+        "cliente_id": 17,
+        "nombre": "Gabriela Soto"
+      }
+    ],
+    "Ropa": [
+      {
+        "cliente_id": 7,
+        "nombre": "Pedro Herrera"
+      },
+      {
+        "cliente_id": 8,
+        "nombre": "Lucía Torres"
+      },
+      {
+        "cliente_id": 9,
+        "nombre": "Diego Morales"
+      },
+      {
+        "cliente_id": 10,
+        "nombre": "Valeria Cruz"
+      },
+      {
+        "cliente_id": 11,
+        "nombre": "Andrés Fuentes"
+      },
+      {
+        "cliente_id": 12,
+        "nombre": "Camila Rodríguez"
+      },
+      {
+        "cliente_id": 13,
+        "nombre": "Daniela Ortiz"
+      },
+      {
+        "cliente_id": 14,
+        "nombre": "Roberto Jiménez"
+      },
+      {
+        "cliente_id": 15,
+        "nombre": "Patricia Vásquez"
+      },
+      {
+        "cliente_id": 16,
+        "nombre": "Fernando Castro"
+      },
+      {
+        "cliente_id": 17,
+        "nombre": "Gabriela Soto"
+      }
+    ],
+    "Hogar": [
+      {
+        "cliente_id": 18,
+        "nombre": "Mariana Luna"
+      },
+      {
+        "cliente_id": 19,
+        "nombre": "Jorge Paredes"
+      },
+      {
+        "cliente_id": 20,
+        "nombre": "Isabel Rojas"
+      }
+    ]
+  },
+  "gastoClientes": [
+    {
+      "cliente_id": 1,
+      "nombre": "Juan Pérez",
+      "gasto_total": 900.0
+    },
+    {
+      "cliente_id": 2,
+      "nombre": "María López",
+      "gasto_total": 470.0
+    },
+    {
+      "cliente_id": 3,
+      "nombre": "Carlos Méndez",
+      "gasto_total": 1420.0
+    },
+    {
+      "cliente_id": 4,
+      "nombre": "Ana Gómez",
+      "gasto_total": 560.0
+    },
+    {
+      "cliente_id": 5,
+      "nombre": "Luis Ramírez",
+      "gasto_total": 1340.0
+    },
+    {
+      "cliente_id": 6,
+      "nombre": "Sofía Castillo",
+      "gasto_total": 1510.0
+    },
+    {
+      "cliente_id": 7,
+      "nombre": "Pedro Herrera",
+      "gasto_total": 400.0
+    },
+    {
+      "cliente_id": 8,
+      "nombre": "Lucía Torres",
+      "gasto_total": 870.0
+    },
+    {
+      "cliente_id": 9,
+      "nombre": "Diego Morales",
+      "gasto_total": 470.0
+    },
+    {
+      "cliente_id": 10,
+      "nombre": "Valeria Cruz",
+      "gasto_total": 850.0
+    },
+    {
+      "cliente_id": 11,
+      "nombre": "Andrés Fuentes",
+      "gasto_total": 1290.0
+    },
+    {
+      "cliente_id": 12,
+      "nombre": "Camila Rodríguez",
+      "gasto_total": 1700.0
+    },
+    {
+      "cliente_id": 13,
+      "nombre": "Daniela Ortiz",
+      "gasto_total": 630.0
+    },
+    {
+      "cliente_id": 14,
+      "nombre": "Roberto Jiménez",
+      "gasto_total": 1100.0
+    },
+    {
+      "cliente_id": 15,
+      "nombre": "Patricia Vásquez",
+      "gasto_total": 1070.0
+    },
+    {
+      "cliente_id": 16,
+      "nombre": "Fernando Castro",
+      "gasto_total": 530.0
+    },
+    {
+      "cliente_id": 17,
+      "nombre": "Gabriela Soto",
+      "gasto_total": 1730.0
+    },
+    {
+      "cliente_id": 18,
+      "nombre": "Mariana Luna",
+      "gasto_total": 280.0
+    },
+    {
+      "cliente_id": 19,
+      "nombre": "Jorge Paredes",
+      "gasto_total": 245.0
+    },
+    {
+      "cliente_id": 20,
+      "nombre": "Isabel Rojas",
+      "gasto_total": 375.0
+    }
+  ],
+  "cupones": [
+    {
+      "cupon_id": 1,
+      "codigo": "DESC10",
+      "descripcion": "10% de descuento en la próxima compra"
+    },
+    {
+      "cupon_id": 2,
+      "codigo": "DESC20-ELEC",
+      "descripcion": "20% de descuento en categoría Electrónica"
+    },
+    {
+      "cupon_id": 3,
+      "codigo": "ENVIOGRATIS",
+      "descripcion": "Envío gratis en el siguiente pedido"
+    },
+    {
+      "cupon_id": 4,
+      "codigo": "REGALO2X1",
+      "descripcion": "Promoción 2x1 en accesorios seleccionados"
+    }
+  ]
+}

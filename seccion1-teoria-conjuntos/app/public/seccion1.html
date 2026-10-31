@@ -278,21 +278,127 @@
     }
   }
 
+  // ---------------------------------------------------------------
+  // Respaldo sin servidor: en GitHub Pages no hay Express ni Postgres,
+  // así que /api/* siempre da 404. Cada fetchX intenta primero la ruta
+  // en vivo (como siempre, en local); si falla, calcula el mismo
+  // resultado en el navegador a partir de data/seccion1-fallback.json
+  // — un volcado real de la base (3 categorías, 20 clientes), no datos
+  // inventados. El insignia "PostgreSQL · en vivo" avisa cuál modo
+  // está activo.
+  let usingFallback = false;
+  let fallbackPromise = null;
+  function loadFallback(){
+    if(!fallbackPromise){
+      fallbackPromise = fetch('data/seccion1-fallback.json').then(res=>{
+        if(!res.ok) throw new Error('No se pudo cargar el respaldo de datos');
+        return res.json();
+      });
+    }
+    return fallbackPromise;
+  }
+  function markOffline(){
+    if(usingFallback) return;
+    usingFallback = true;
+    const badge = document.getElementById('liveBadge');
+    badge.classList.add('is-offline');
+    badge.innerHTML = '<span class="dot" id="liveDot"></span>Datos precargados · sin conexión';
+  }
+
+  function byClienteId(arr){ return [...arr].sort((x,y)=>x.cliente_id-y.cliente_id); }
+
+  function fmtSqlClient(catA, catB){
+    return {
+      union: `SELECT cliente_id, nombre FROM clientes_por_categoria('${catA}')\nUNION\nSELECT cliente_id, nombre FROM clientes_por_categoria('${catB}');`,
+      interseccion: `SELECT cliente_id, nombre FROM clientes_por_categoria('${catA}')\nINTERSECT\nSELECT cliente_id, nombre FROM clientes_por_categoria('${catB}');`,
+      diferenciaAB: `SELECT cliente_id, nombre FROM clientes_por_categoria('${catA}')\nEXCEPT\nSELECT cliente_id, nombre FROM clientes_por_categoria('${catB}');`,
+      diferenciaBA: `SELECT cliente_id, nombre FROM clientes_por_categoria('${catB}')\nEXCEPT\nSELECT cliente_id, nombre FROM clientes_por_categoria('${catA}');`,
+      diferenciaSimetrica: `(SELECT cliente_id, nombre FROM clientes_por_categoria('${catA}')\n EXCEPT\n SELECT cliente_id, nombre FROM clientes_por_categoria('${catB}'))\nUNION\n(SELECT cliente_id, nombre FROM clientes_por_categoria('${catB}')\n EXCEPT\n SELECT cliente_id, nombre FROM clientes_por_categoria('${catA}'));`,
+    };
+  }
+
+  // Replica en JS lo que hacen UNION/INTERSECT/EXCEPT sobre las listas
+  // de clientes por categoría — mismos resultados que el backend,
+  // calculados con los datos ya traídos en vez de una consulta nueva.
+  function computeConjuntos(fallback, catA, catB){
+    const a = byClienteId(fallback.clientesPorCategoria[catA] || []);
+    const b = byClienteId(fallback.clientesPorCategoria[catB] || []);
+    const idsA = new Set(a.map(c=>c.cliente_id));
+    const idsB = new Set(b.map(c=>c.cliente_id));
+    const byId = new Map([...a, ...b].map(c=>[c.cliente_id, c]));
+    const union = byClienteId([...new Set([...idsA, ...idsB])].map(id=>byId.get(id)));
+    const interseccion = byClienteId(a.filter(c=>idsB.has(c.cliente_id)));
+    const diferenciaAB = byClienteId(a.filter(c=>!idsB.has(c.cliente_id)));
+    const diferenciaBA = byClienteId(b.filter(c=>!idsA.has(c.cliente_id)));
+    const diferenciaSimetrica = byClienteId([...diferenciaAB, ...diferenciaBA]);
+    return {
+      catA, catB, a, b, union, interseccion, diferenciaAB, diferenciaBA, diferenciaSimetrica,
+      totalClientes: fallback.universo.total,
+      sql: fmtSqlClient(catA, catB),
+    };
+  }
+
+  // Replica el filtro VIP (HAVING gasto_total > umbral) + CROSS JOIN
+  // con cupones, con el mismo orden que usa el backend.
+  function computeCartesiano(fallback, minGasto){
+    const vip = fallback.gastoClientes
+      .filter(c => c.gasto_total > minGasto)
+      .sort((x,y)=> y.gasto_total - x.gasto_total || x.cliente_id - y.cliente_id);
+    const cupones = [...fallback.cupones].sort((x,y)=>x.cupon_id-y.cupon_id);
+    const vipByCliente = byClienteId(vip);
+    const pares = [];
+    vipByCliente.forEach(v=>{
+      cupones.forEach(cu=>{
+        pares.push({ cliente_id: v.cliente_id, nombre: v.nombre, gasto_total: v.gasto_total, cupon_id: cu.cupon_id, codigo: cu.codigo });
+      });
+    });
+    return {
+      minGasto, vip, cupones, pares,
+      sql: `SELECT v.cliente_id, v.nombre, v.gasto_total, cu.codigo\nFROM v_clientes_vip v   -- gasto_total > ${minGasto}\nCROSS JOIN cupones cu\nORDER BY v.cliente_id, cu.cupon_id;`,
+    };
+  }
+
   async function fetchCategorias(){
-    const res = await fetch('api/categorias');
-    if(!res.ok) throw new Error('No se pudieron cargar las categorías');
-    return res.json();
+    try {
+      const res = await fetch('api/categorias');
+      if(!res.ok) throw new Error();
+      return await res.json();
+    } catch (e) {
+      markOffline();
+      return (await loadFallback()).categorias;
+    }
   }
   async function fetchUniverso(){
-    const res = await fetch('api/universo');
-    if(!res.ok) throw new Error('No se pudo cargar el universo de clientes');
-    return res.json();
+    try {
+      const res = await fetch('api/universo');
+      if(!res.ok) throw new Error();
+      return await res.json();
+    } catch (e) {
+      markOffline();
+      return (await loadFallback()).universo;
+    }
   }
   async function fetchConjuntos(catA, catB){
-    const res = await fetch('api/conjuntos?catA=' + encodeURIComponent(catA) + '&catB=' + encodeURIComponent(catB));
-    const data = await res.json();
-    if(!res.ok) throw new Error(data.error || 'Error al consultar conjuntos');
-    return data;
+    try {
+      const res = await fetch('api/conjuntos?catA=' + encodeURIComponent(catA) + '&catB=' + encodeURIComponent(catB));
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || 'Error al consultar conjuntos');
+      return data;
+    } catch (e) {
+      markOffline();
+      return computeConjuntos(await loadFallback(), catA, catB);
+    }
+  }
+  async function fetchCartesiano(minGasto){
+    try {
+      const res = await fetch('api/cartesiano?minGasto=' + encodeURIComponent(minGasto));
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || 'Error al consultar el producto cartesiano');
+      return data;
+    } catch (e) {
+      markOffline();
+      return computeCartesiano(await loadFallback(), minGasto);
+    }
   }
 
   async function runConsulta(){
@@ -327,7 +433,7 @@
       const outside = data.totalClientes - data.union.length;
       document.getElementById('outsideLabel').textContent = 'fuera de A ∪ B (' + outside + ')';
 
-      statusEl.textContent = 'Última consulta: ' + new Date().toLocaleTimeString();
+      statusEl.textContent = 'Última consulta: ' + new Date().toLocaleTimeString() + (usingFallback ? ' (datos precargados)' : '');
       renderOperation();
     } catch (err) {
       statusEl.textContent = err.message;
@@ -340,9 +446,7 @@
     const statusEl = document.getElementById('cartStatus');
     statusEl.textContent = 'Consultando PostgreSQL…';
     try {
-      const res = await fetch('api/cartesiano?minGasto=' + encodeURIComponent(minGasto));
-      const data = await res.json();
-      if(!res.ok) throw new Error(data.error || 'Error al consultar el producto cartesiano');
+      const data = await fetchCartesiano(minGasto);
 
       document.getElementById('statV').textContent = data.vip.length;
       document.getElementById('statC').textContent = data.cupones.length;
@@ -372,7 +476,7 @@
         });
       }
       table.appendChild(tbody);
-      statusEl.textContent = 'Última consulta: ' + new Date().toLocaleTimeString();
+      statusEl.textContent = 'Última consulta: ' + new Date().toLocaleTimeString() + (usingFallback ? ' (datos precargados)' : '');
     } catch (err) {
       statusEl.textContent = err.message;
     }
