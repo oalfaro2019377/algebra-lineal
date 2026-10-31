@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Control remoto — Álgebra Lineal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<main class="remote">
+  <div class="remote-head">
+    <span class="remote-head__title">Álgebra Lineal</span>
+    <span class="label" id="remoteStatus">conectando…</span>
+  </div>
+
+  <button type="button" class="remote-btn remote-btn--prev" id="btnPrev" aria-label="Diapositiva anterior">
+    <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4L7 12l8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>Anterior</span>
+  </button>
+
+  <button type="button" class="remote-btn remote-btn--next" id="btnNext" aria-label="Siguiente diapositiva">
+    <span>Siguiente</span>
+    <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</main>
+
+<script>
+  const statusEl = document.getElementById('remoteStatus');
+
+  async function send(dir) {
+    statusEl.textContent = 'enviando…';
+    try {
+      await fetch('api/remote/' + dir, { method: 'POST' });
+      statusEl.textContent = '✓ enviado';
+      setTimeout(() => { statusEl.textContent = 'listo'; }, 700);
+    } catch (e) {
+      statusEl.textContent = 'sin conexión';
+    }
+  }
+
+  document.getElementById('btnPrev').addEventListener('click', () => send('prev'));
+  document.getElementById('btnNext').addEventListener('click', () => send('next'));
+
+  fetch('api/remote/state')
+    .then(() => { statusEl.textContent = 'listo'; })
+    .catch(() => { statusEl.textContent = 'sin conexión'; });
+</script>
+</body>
+</html>

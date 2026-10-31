@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>03 · Sistemas de ecuaciones — Álgebra Lineal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-active-section="3">
+
+<main class="container page">
+
+  <div class="page-head">
+    <div class="page-head__meta">
+      <span class="label">Pestaña 03 / 04</span>
+      <span class="label" style="color: var(--ink-2)">Caso · clúster HPC para IA</span>
+    </div>
+    <div class="page-head__main">
+      <h1 class="t-display">Sistemas de ecuaciones <em>lineales</em></h1>
+      <p class="t-lead">Un laboratorio de cómputo de alto rendimiento asigna tareas de entrenamiento de Machine Learning a tres tipos de nodos servidores. Necesita agotar exactamente 11 Cores, 13 GB de VRAM y 6 Amperios. ¿Cuántos nodos de cada tipo hay que activar?</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">1 — Datos</span>
+        <h2 class="t-h2">Tres tipos de nodo</h2>
+      </div>
+    </div>
+    <div class="grid-auto" style="--min: 260px">
+      <article class="card">
+        <div class="card__head"><h3 class="t-h3">Tipo A</h3><span class="t-math" style="font-size: 32px; color: var(--accent)">x</span></div>
+        <dl class="specs">
+          <dt>Cores</dt><dd>1</dd>
+          <dt>VRAM</dt><dd>2 GB</dd>
+          <dt>Amperios</dt><dd>1 A</dd>
+        </dl>
+      </article>
+      <article class="card">
+        <div class="card__head"><h3 class="t-h3">Tipo B</h3><span class="t-math" style="font-size: 32px; color: var(--accent)">y</span></div>
+        <dl class="specs">
+          <dt>Cores</dt><dd>4</dd>
+          <dt>VRAM</dt><dd>1 GB</dd>
+          <dt>Amperios</dt><dd>2 A</dd>
+        </dl>
+      </article>
+      <article class="card">
+        <div class="card__head"><h3 class="t-h3">Tipo C</h3><span class="t-math" style="font-size: 32px; color: var(--accent)">z</span></div>
+        <dl class="specs">
+          <dt>Cores</dt><dd>2</dd>
+          <dt>VRAM</dt><dd>3 GB</dd>
+          <dt>Amperios</dt><dd>1 A</dd>
+        </dl>
+      </article>
+      <article class="card card--muted">
+        <div class="card__head"><h3 class="t-h3">Demanda</h3><span class="label">vector b</span></div>
+        <dl class="specs">
+          <dt>Cores</dt><dd>11</dd>
+          <dt>VRAM</dt><dd>13 GB</dd>
+          <dt>Amperios</dt><dd>6 A</dd>
+        </dl>
+      </article>
+    </div>
+    <p class="t-small">x, y, z = nodos de cada tipo activados simultáneamente para agotar exactamente la capacidad del clúster.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-head" style="align-items: center">
+      <div class="section-head__title">
+        <span class="label">2 — Plantear</span>
+        <h2 class="t-h2">El sistema 3 × 3</h2>
+      </div>
+    </div>
+    <p style="max-width: 46ch">Una ecuación por recurso. En forma matricial: <span class="t-math">A·x = b</span>.</p>
+    <div class="equations">
+      <span><span>1</span><i>x</i></span><span class="op">+</span><span><span>4</span><i>y</i></span><span class="op">+</span><span><span>2</span><i>z</i></span><span class="op">=</span><span>11</span><span class="unit">cores</span>
+      <span><span>2</span><i>x</i></span><span class="op">+</span><span><span>1</span><i>y</i></span><span class="op">+</span><span><span>3</span><i>z</i></span><span class="op">=</span><span>13</span><span class="unit">VRAM GB</span>
+      <span><span>1</span><i>x</i></span><span class="op">+</span><span><span>2</span><i>y</i></span><span class="op">+</span><span><span>1</span><i>z</i></span><span class="op">=</span><span>6</span><span class="unit">amperios</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">3 — Resolver</span>
+        <h2 class="t-h2">Eliminación Gauss-Jordan, a mano</h2>
+      </div>
+    </div>
+    <p style="max-width: 60ch">El sistema resuelto a mano, por eliminación Gauss-Jordan y sustitución hacia atrás — tres páginas del cuaderno, en orden.</p>
+    <div class="grid-auto scan-gallery" style="--min: 280px">
+      <a class="scan-frame" href="assets/scans/scan-1-planteamiento.webp" target="_blank" rel="noopener">
+        <img src="assets/scans/scan-1-planteamiento.webp" alt="Planteamiento del sistema: definición de variables, ecuaciones, forma matricial Ax=B y matriz aumentada">
+        <span class="label scan-frame__caption">1–4 · Planteamiento y matriz aumentada</span>
+      </a>
+      <a class="scan-frame" href="assets/scans/scan-2-gauss-jordan.webp" target="_blank" rel="noopener">
+        <img src="assets/scans/scan-2-gauss-jordan.webp" alt="Eliminación Gauss-Jordan: operaciones de fila R2 − 2R1, R3 − R1, 3R3 + 2R2">
+        <span class="label scan-frame__caption">5 · Eliminación Gauss-Jordan</span>
+      </a>
+      <a class="scan-frame" href="assets/scans/scan-3-sustitucion.webp" target="_blank" rel="noopener">
+        <img src="assets/scans/scan-3-sustitucion.webp" alt="Sustitución hacia atrás y verificación de x, y, z en las tres ecuaciones originales">
+        <span class="label scan-frame__caption">Sustitución hacia atrás y verificación</span>
+      </a>
+    </div>
+  </section>
+
+  <div role="status" class="result">
+    <div class="result__text">
+      <span class="result__kicker">Resultado final · Gauss = Cramer</span>
+      <span class="result__sentence">1 nodo A, 0.8 de nodo B y 3.4 de nodo C cubren la demanda exacta.</span>
+    </div>
+    <div class="result__values"><span><i>x</i> = 1</span><span><i>y</i> = 0.8</span><span><i>z</i> = 3.4</span></div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">4 — Ver</span>
+        <h2 class="t-h2">Tres planos, un punto</h2>
+      </div>
+    </div>
+    <figure class="viewer">
+      <div class="viewer__bar"><span>GeoGebra 3D</span><span>Arrastrar para rotar · rueda para acercar</span></div>
+      <div id="ggb-seccion3" class="ggb-mount">
+        <p class="ggb-fallback">Cargando GeoGebra 3D… (requiere conexión a internet). Si no carga, verifica la conexión y recarga la página.</p>
+      </div>
+      <figcaption class="viewer__caption legend">
+        <span class="legend__item"><span class="legend__swatch"></span>Cores</span>
+        <span class="legend__item"><span class="legend__swatch" style="background: var(--ink)"></span>VRAM</span>
+        <span class="legend__item"><span class="legend__swatch" style="background: var(--ink-3)"></span>Amperios</span>
+        <span>P = (1, 0.8, 3.4)</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <footer class="page-footer">
+    <span>← <a href="seccion2.html">02 Matrices</a></span>
+    <span>Siguiente → <a href="seccion4.html">04 Espacios vectoriales</a></span>
+  </footer>
+
+</main>
+
+<script src="shared/nav.js"></script>
+<script src="shared/slidenav.js"></script>
+<script src="https://www.geogebra.org/apps/deployggb.js"></script>
+<script>
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+    const n = parseInt(hex, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  const accentRgb = hexToRgb(cssVar('--accent'));
+  const inkRgb = hexToRgb(cssVar('--ink'));
+  const ink3Rgb = hexToRgb(cssVar('--ink-3'));
+
+  var ggbApp3 = new GGBApplet({
+    appName: "3d",
+    width: 900,
+    height: 560,
+    showToolBar: false,
+    showAlgebraInput: false,
+    showMenuBar: false,
+    enableRightClick: false,
+    enableShiftDragZoom: true,
+    appletOnLoad: function (api) {
+      api.evalCommand("p_1: x+4y+2z=11");
+      api.evalCommand("p_2: 2x+y+3z=13");
+      api.evalCommand("p_3: x+2y+z=6");
+      api.evalCommand("SetFilling(p_1,0.18)");
+      api.evalCommand("SetFilling(p_2,0.08)");
+      api.evalCommand("SetFilling(p_3,0.12)");
+      api.evalCommand("L_1=Intersect(p_1,p_2)");
+      api.evalCommand("SetVisibleInView(L_1,1,false)");
+      api.evalCommand("P=Intersect(L_1,p_3)");
+      api.evalCommand("SetPointSize(P,5)");
+      api.setCoordSystem(-3, 15, -3, 15, -3, 15);
+
+      // evalCommand("SetColor(...)") silently no-ops on this embed (verified at
+      // runtime on the Sección 4 applet); the applet's own setColor() method is
+      // what actually paints the object, so colors go through it instead.
+      api.setColor('p_1', accentRgb[0], accentRgb[1], accentRgb[2]);
+      api.setColor('p_2', inkRgb[0], inkRgb[1], inkRgb[2]);
+      api.setColor('p_3', ink3Rgb[0], ink3Rgb[1], ink3Rgb[2]);
+      api.setColor('P', inkRgb[0], inkRgb[1], inkRgb[2]);
+    }
+  }, true);
+  ggbApp3.inject('ggb-seccion3');
+</script>
+</body>
+</html>

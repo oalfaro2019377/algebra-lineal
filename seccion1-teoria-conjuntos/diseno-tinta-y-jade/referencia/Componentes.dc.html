@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Componentes y navegación</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F5F5F2}
+a{color:#0B6B55}a:hover{color:#08503F}
+</style>
+</helmet>
+<div style="background: #F5F5F2; color: #17171A; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 18px; line-height: 1.55; min-height: 100vh">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px 48px 128px; display: flex; flex-direction: column; gap: 96px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-end; border-bottom: 1px solid #17171A; padding-bottom: 40px">
+<div style="flex: 1 1 220px; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.04em; color: #0B6B55">COMPONENTES</div>
+<div style="flex: 999 1 640px; display: flex; flex-direction: column; gap: 16px">
+<h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 340; font-size: 72px; line-height: 1; letter-spacing: -0.02em">Piezas para armar las cuatro pestañas</h1>
+<p style="margin: 0; max-width: 720px; font-size: 20px; color: #4A4A50">Cada bloque indica su clase CSS sugerida y los tokens que usa. Sin sombras: la jerarquía se construye con borde de 1 px, superficie y tipografía.</p>
+</div>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.1">Navegación por pestañas</h2>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.topbar · .tab · .tab[aria-current]</span>
+</div>
+<div style="border: 1px solid #D9D8D2; border-radius: 6px; overflow: hidden; background: #FFFFFF">
+<div style="background: #F5F5F2; border-bottom: 1px solid #D9D8D2; display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px 32px; padding: 0 32px">
+<div style="display: flex; align-items: center; gap: 10px; min-height: 72px">
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; letter-spacing: -0.01em">TecnoModa</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid #17171A; padding: 1px 5px; border-radius: 3px">GT</span>
+</div>
+<nav aria-label="Secciones" style="display: flex; flex-wrap: wrap; flex: 1 1 auto">
+<a href="#" aria-current="page" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid #0B6B55; color: #17171A; text-decoration: none; font-weight: 600; font-size: 16px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #0B6B55">01</span>Conjuntos</a>
+<a href="#" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #4A4A50; text-decoration: none; font-weight: 500; font-size: 16px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">02</span>Matrices</a>
+<a href="#" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid #B9B8B1; color: #17171A; text-decoration: none; font-weight: 500; font-size: 16px; background: #ECEBE6"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">03</span>Sistemas de ecuaciones</a>
+<a href="#" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #4A4A50; text-decoration: none; font-weight: 500; font-size: 16px; outline: 2px solid #0B6B55; outline-offset: -6px; border-radius: 3px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">04</span>Espacios vectoriales</a>
+</nav>
+<div style="display: flex; align-items: center; font-size: 14px; color: #6E6E74">UMG · Grupo 1</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 28px 32px; font-size: 15px; color: #4A4A50">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600; color: #17171A">Activa · 01</span>Texto --ink 600, número --accent, raya inferior 2 px --accent. Lleva aria-current="page".</div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600; color: #17171A">Inactiva · 02</span>Texto --ink-2 500, número --ink-3, sin raya. Área táctil de 72 px de alto.</div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600; color: #17171A">Hover · 03</span>Fondo --surface-2, raya 2 px --line-strong, texto --ink. Transición 120 ms.</div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-weight: 600; color: #17171A">Foco teclado · 04</span>Contorno 2 px --accent desplazado −6 px. Flechas ← → cambian de pestaña.</div>
+</div>
+</div>
+<p style="margin: 0; font-size: 15px; color: #6E6E74; max-width: 820px">Barra fija (position: sticky; top: 0) con fondo --bg al 92 % y desenfoque de 8 px. En pantallas menores a 720 px la marca queda arriba y las pestañas pasan a una fila con desplazamiento horizontal, sin menú hamburguesa.</p>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(520px, 1fr)); gap: 48px">
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px">Botón de operación</h2><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.op-btn</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<button type="button" aria-pressed="true" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 64px; padding: 10px 18px; border-radius: 3px; border: 1px solid #0B6B55; background: #0B6B55; color: #FFFFFF; font-family: 'Instrument Sans', sans-serif; cursor: pointer"><span style="font-family: 'Fraunces', serif; font-size: 22px; line-height: 1">A ∪ B</span><span style="font-size: 13px; font-weight: 500">Unión</span></button>
+<button type="button" aria-pressed="false" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 64px; padding: 10px 18px; border-radius: 3px; border: 1px solid #B9B8B1; background: #FFFFFF; color: #17171A; font-family: 'Instrument Sans', sans-serif; cursor: pointer"><span style="font-family: 'Fraunces', serif; font-size: 22px; line-height: 1">A ∩ B</span><span style="font-size: 13px; font-weight: 500; color: #4A4A50">Intersección</span></button>
+<button type="button" aria-pressed="false" style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 64px; padding: 10px 18px; border-radius: 3px; border: 1px solid #17171A; background: #ECEBE6; color: #17171A; font-family: 'Instrument Sans', sans-serif; cursor: pointer"><span style="font-family: 'Fraunces', serif; font-size: 22px; line-height: 1">A − B</span><span style="font-size: 13px; font-weight: 500; color: #4A4A50">Hover</span></button>
+</div>
+<div style="font-size: 15px; color: #4A4A50; display: flex; flex-direction: column; gap: 4px">
+<span>Símbolo en Fraunces 22, nombre en Instrument 13/500. Alto mínimo 64 px, padding 10×18, radio --r-1.</span>
+<span>Reposo: --surface + borde --line-strong. Hover: --surface-2 + borde --ink. Activo: --accent lleno, texto --on-accent, aria-pressed="true".</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px">Tarjeta</h2><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.card · .card--accent</span></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<article style="background: #FFFFFF; border: 1px solid #D9D8D2; border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">OPERACIÓN 03</span>
+<h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 450; font-size: 26px; line-height: 1.15">Producto punto</h3>
+<p style="margin: 0; font-size: 16px; color: #4A4A50">Mide qué tanto apuntan dos vectores en la misma dirección.</p>
+</article>
+<article style="background: #DCEDE6; border: 1px solid #0B6B55; border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #0B6B55">RESALTADA</span>
+<h3 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 450; font-size: 26px; line-height: 1.15">Tipo A</h3>
+<p style="margin: 0; font-size: 16px; color: #17171A">Variante para el elemento en foco de la explicación.</p>
+</article>
+</div>
+<span style="font-size: 15px; color: #4A4A50">Padding 24 (32 en tarjetas de sección), radio --r-2, borde 1 px --line. Rótulo → título h3 → cuerpo, separación 12.</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px">Bloque de fórmula</h2><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.formula</span></div>
+<figure style="margin: 0; border-top: 1px solid #17171A; border-bottom: 1px solid #D9D8D2; padding: 28px 0; display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: baseline">
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 40px; line-height: 1.2; letter-spacing: -0.01em">r = v − 2(v · n̂) n̂</span>
+<figcaption style="font-size: 15px; color: #4A4A50; max-width: 260px">Reflexión de un vector sobre una superficie de normal unitaria n̂.</figcaption>
+</figure>
+<span style="font-size: 15px; color: #4A4A50">Sin caja: filete superior --ink y uno inferior --line. Fraunces itálica 40 px (32 px en tarjetas). En HTML se puede renderizar con KaTeX manteniendo la misma fuente.</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px">Bloque de código en vivo</h2><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.code · .code__meta</span></div>
+<div style="border: 1px solid #17171A; border-radius: 3px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 16px; background: #17171A; color: #EDECE8; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 999px; background: #5CC9A7"></span>postgres · tecnomoda</span>
+<span style="color: #B8B7B2">15 filas · 14 ms</span>
+</div>
+<pre style="margin: 0; padding: 18px 16px; background: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-size: 16px; line-height: 1.6; overflow-x: auto; white-space: pre"><span style="color: #0B6B55; font-weight: 500">SELECT</span> nombre <span style="color: #0B6B55; font-weight: 500">FROM</span> clientes
+<span style="color: #0B6B55; font-weight: 500">INTERSECT</span> …</pre>
+</div>
+<span style="font-size: 15px; color: #4A4A50">Cabecera oscura con indicador de conexión (punto --accent) y metadatos reales de la respuesta. Palabras clave SQL en --accent 500; el resto --ink. Radio --r-1.</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px">Tabla</h2><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.table</span></div>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; font-size: 16px; font-variant-numeric: tabular-nums">
+<thead><tr style="border-bottom: 1px solid #17171A">
+<th style="text-align: left; padding: 10px 12px 10px 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">NODO</th>
+<th style="text-align: right; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">CORES</th>
+<th style="text-align: right; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">VRAM</th>
+<th style="text-align: right; padding: 10px 0 10px 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">AMP</th>
+</tr></thead>
+<tbody>
+<tr style="border-bottom: 1px solid #D9D8D2"><td style="padding: 12px 12px 12px 0; font-weight: 500">Tipo A</td><td style="padding: 12px; text-align: right">64</td><td style="padding: 12px; text-align: right">80 GB</td><td style="padding: 12px 0 12px 12px; text-align: right">10 A</td></tr>
+<tr style="border-bottom: 1px solid #D9D8D2; background: #DCEDE6"><td style="padding: 12px 12px 12px 8px; font-weight: 500">Tipo B · fila activa</td><td style="padding: 12px; text-align: right">32</td><td style="padding: 12px; text-align: right">48 GB</td><td style="padding: 12px 8px 12px 12px; text-align: right">5 A</td></tr>
+</tbody>
+</table>
+</div>
+<span style="font-size: 15px; color: #4A4A50">Sin cuadrícula vertical. Encabezado en etiqueta mono sobre filete --ink; filas separadas por --line; números alineados a la derecha con cifras tabulares. Radio --r-0.</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px">Chip de resultado</h2><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.chip · .chip--both</span></div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px">
+<li style="display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border: 1px solid #B9B8B1; border-radius: 999px; background: #FFFFFF; font-size: 16px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6E6E74">A</span>Ana López</li>
+<li style="display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border: 1px solid #0B6B55; border-radius: 999px; background: #DCEDE6; font-size: 16px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #0B6B55">A·B</span>Lucía Hernández</li>
+<li style="display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border: 1px dashed #6E6E74; border-radius: 999px; background: #FFFFFF; font-size: 16px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #6E6E74">B</span>Fernanda Cruz</li>
+</ul>
+<span style="font-size: 15px; color: #4A4A50">El prefijo dice de qué conjunto viene el registro. A: borde sólido; B: borde punteado (igual que su círculo en el Venn); en ambos: --accent-soft. Único elemento con --r-pill.</span>
+</div>
+
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap"><h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px">Banner de resultado</h2><span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">.result</span></div>
+<div role="status" style="background: #0B6B55; color: #FFFFFF; display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: center; padding: 36px 40px">
+<div style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; opacity: 0.85">SOLUCIÓN ÚNICA · det(A) = 1280</span><span style="font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.2">Los tres planos se cortan en un solo punto.</span></div>
+<div style="flex: 2 1 420px; display: flex; flex-wrap: wrap; gap: 16px 48px; font-family: 'Fraunces', serif; font-weight: 340; font-size: 64px; line-height: 1; font-variant-numeric: tabular-nums"><span><span style="font-style: italic">x</span> = 1</span><span><span style="font-style: italic">y</span> = 0.8</span><span><span style="font-style: italic">z</span> = 3.4</span></div>
+</div>
+<span style="font-size: 15px; color: #4A4A50; max-width: 820px">Bloque a sangre completa en --accent, radio --r-0. Es el único lugar donde el acento se usa como fondo grande: se reserva para la respuesta final de cada pestaña. Lleva role="status" para que se anuncie al recalcular.</span>
+</section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2500}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

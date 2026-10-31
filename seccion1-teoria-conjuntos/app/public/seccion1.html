@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>01 · Teoría de conjuntos — Álgebra Lineal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-active-section="1">
+
+<main class="container page">
+
+  <div class="page-head">
+    <div class="page-head__meta">
+      <span class="label">Pestaña 01 / 04</span>
+      <span class="badge-live" id="liveBadge"><span class="dot" id="liveDot"></span>PostgreSQL · en vivo</span>
+    </div>
+    <div class="page-head__main">
+      <h1 class="t-display">Teoría de conjuntos</h1>
+      <p class="t-lead">Dos grupos de clientes de la tienda en línea. Cada operación se traduce a SQL y se ejecuta contra la base de datos en el momento en que la eliges.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">1 — Definir</span>
+        <h2 class="t-h2">Los conjuntos</h2>
+      </div>
+    </div>
+    <div class="grid-auto" style="--min: 420px">
+      <div class="card card--row">
+        <div class="field" style="flex: 1 1 220px">
+          <label class="field__label" for="selA"><span class="line-sample"></span>Conjunto A</label>
+          <select id="selA" class="select"></select>
+        </div>
+        <div class="stat stat--end">
+          <span class="stat__key">|A|</span>
+          <span class="stat__value" id="statA">–</span>
+        </div>
+        <p class="t-math" id="defA" style="flex: 1 1 100%">A = { c ∈ Clientes | c compró en … }</p>
+      </div>
+      <div class="card card--row">
+        <div class="field" style="flex: 1 1 220px">
+          <label class="field__label" for="selB"><span class="line-sample line-sample--dashed"></span>Conjunto B</label>
+          <select id="selB" class="select"></select>
+        </div>
+        <div class="stat stat--end">
+          <span class="stat__key">|B|</span>
+          <span class="stat__value" id="statB">–</span>
+        </div>
+        <p class="t-math" id="defB" style="flex: 1 1 100%">B = { c ∈ Clientes | c compró en … }</p>
+      </div>
+    </div>
+    <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap">
+      <button class="btn btn--primary" id="btnConsultar" type="button">Ejecutar consultas</button>
+      <span class="t-small">Universo: <strong id="totalClientes" style="color: var(--ink)">–</strong> clientes.</span>
+      <span class="t-small" id="statusMsg"></span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">2 — Operar</span>
+        <h2 class="t-h2">Elige una operación</h2>
+      </div>
+    </div>
+    <div class="op-group" role="group" aria-label="Operación entre conjuntos" id="opSelector"></div>
+
+    <div class="split">
+      <figure class="card" style="flex: 1 1 540px">
+        <div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap" class="label">
+          <span>Diagrama de Venn</span><span id="universeLabel">Universo: clientes con compras</span>
+        </div>
+        <svg class="venn" viewBox="0 0 560 380" role="img" aria-labelledby="vennTitle">
+          <title id="vennTitle">Diagrama de Venn de clientes por categoría comprada</title>
+          <defs>
+            <clipPath id="clipA"><circle cx="210" cy="200" r="150"/></clipPath>
+            <clipPath id="clipB"><circle cx="350" cy="200" r="150"/></clipPath>
+            <mask id="maskNotB"><rect x="0" y="0" width="560" height="380" fill="#fff"/><circle cx="350" cy="200" r="150" fill="#000"/></mask>
+            <mask id="maskNotA"><rect x="0" y="0" width="560" height="380" fill="#fff"/><circle cx="210" cy="200" r="150" fill="#000"/></mask>
+          </defs>
+          <circle cx="210" cy="200" r="150" mask="url(#maskNotB)" class="venn__region region-a-only"></circle>
+          <circle cx="350" cy="200" r="150" mask="url(#maskNotA)" class="venn__region region-b-only"></circle>
+          <circle cx="350" cy="200" r="150" clip-path="url(#clipA)" class="venn__region region-intersection"></circle>
+          <circle cx="210" cy="200" r="150" class="venn__outline"></circle>
+          <circle cx="350" cy="200" r="150" class="venn__outline venn__outline--b"></circle>
+          <text x="120" y="38" class="venn__setname" id="vennLabelA">A</text>
+          <text x="440" y="38" class="venn__setname" id="vennLabelB" text-anchor="end">B</text>
+          <text x="140" y="218" class="venn__count" id="countAOnly">–</text>
+          <text x="280" y="218" class="venn__count" id="countInt">–</text>
+          <text x="420" y="218" class="venn__count" id="countBOnly">–</text>
+          <g id="outsideDots"></g>
+        </svg>
+        <figcaption class="legend">
+          <span class="legend__item"><span class="legend__swatch"></span>Región activa</span>
+          <span>Línea continua: A</span>
+          <span>Línea punteada: B</span>
+          <span id="outsideLabel">fuera de A ∪ B</span>
+        </figcaption>
+      </figure>
+
+      <div style="flex: 1 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+        <div class="result-head">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <span class="label label--accent">Resultado</span>
+            <span class="result-head__name" id="resultLabel">–</span>
+          </div>
+          <span class="result-head__count" id="resultCount">–</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <span class="t-math" id="resultDef" style="font-size: 22px">–</span>
+          <span class="label" style="text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--ink-2)" id="resultCard">–</span>
+        </div>
+        <div class="code">
+          <div class="code__meta">
+            <span style="display: flex; align-items: center; gap: 8px"><span class="dot"></span>postgres · tienda_online · SQL ejecutado</span>
+            <span class="code__stats" id="resultSqlMeta">– filas</span>
+          </div>
+          <pre><code id="resultSql">-- elige A y B y pulsa "Ejecutar consultas"</code></pre>
+        </div>
+        <ul class="chips" aria-label="Clientes devueltos" id="resultList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">3 — Combinar</span>
+        <h2 class="t-h2">Producto cartesiano</h2>
+      </div>
+    </div>
+    <div class="split">
+      <div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 24px">
+        <p>Cada cliente VIP se empareja con cada cupón disponible. El umbral define quién es VIP según su gasto acumulado.</p>
+        <p class="t-math" style="font-size: 26px">V × C = { (v, c) | v ∈ V, c ∈ C }</p>
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap">
+            <label class="field__label" for="minGasto">Umbral VIP · gasto ≥</label>
+            <span class="t-h3" id="minGastoLabel" style="font-size: 32px">Q 1,500</span>
+          </div>
+          <input id="minGasto" class="range" type="range" min="0" max="3000" step="50" value="1500">
+          <div style="display: flex; justify-content: space-between" class="label"><span>Q 0</span><span>Q 3,000</span></div>
+        </div>
+        <div class="stats-row">
+          <div class="stat"><span class="stat__key">|V|</span><span class="stat__value" id="statV">–</span></div>
+          <div class="stat"><span class="stat__key">|C|</span><span class="stat__value" id="statC">–</span></div>
+          <div class="stat stat--accent"><span class="stat__key">|V × C|</span><span class="stat__value" id="statVC">–</span></div>
+        </div>
+        <div class="code">
+          <div class="code__meta">
+            <span style="display: flex; align-items: center; gap: 8px"><span class="dot"></span>CROSS JOIN</span>
+            <span class="code__stats" id="cartSqlMeta">– filas</span>
+          </div>
+          <pre><code id="cartSql"></code></pre>
+        </div>
+      </div>
+      <div style="flex: 1 1 520px; min-width: 0" class="table-wrap">
+        <table class="table" id="cartTable">
+          <caption class="label">Pares (v, c) devueltos</caption>
+        </table>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 16px">
+      <span class="t-small" id="cartStatus"></span>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <span>Nombres y montos reales de la base <code>tienda_online</code>.</span>
+    <span>Siguiente → <a href="seccion2.html">02 Matrices</a></span>
+  </footer>
+
+</main>
+
+<script src="shared/nav.js"></script>
+<script src="shared/slidenav.js"></script>
+<script>
+(function(){
+  const regionEls = {
+    'a-only': document.querySelector('.region-a-only'),
+    'b-only': document.querySelector('.region-b-only'),
+    'intersection': document.querySelector('.region-intersection'),
+  };
+  const countEls = {
+    'a-only': document.getElementById('countAOnly'),
+    'b-only': document.getElementById('countBOnly'),
+    'intersection': document.getElementById('countInt'),
+  };
+
+  const operations = {
+    union: {
+      name: 'Unión', sym: 'A ∪ B', regions: ['a-only','b-only','intersection'], field: 'union', sqlField: 'union',
+      def: 'A ∪ B = { x | x ∈ A ∨ x ∈ B }',
+      card: (a,b,i,u) => `|A ∪ B| = |A| + |B| − |A ∩ B| = ${a} + ${b} − ${i} = ${u}`,
+    },
+    interseccion: {
+      name: 'Intersección', sym: 'A ∩ B', regions: ['intersection'], field: 'interseccion', sqlField: 'interseccion',
+      def: 'A ∩ B = { x | x ∈ A ∧ x ∈ B }',
+      card: (a,b,i) => `|A ∩ B| = ${i}`,
+    },
+    diferenciaAB: {
+      name: 'Diferencia A − B', sym: 'A − B', regions: ['a-only'], field: 'diferenciaAB', sqlField: 'diferenciaAB',
+      def: 'A − B = { x | x ∈ A ∧ x ∉ B }',
+      card: (a,b,i) => `|A − B| = |A| − |A ∩ B| = ${a} − ${i} = ${a - i}`,
+    },
+    diferenciaBA: {
+      name: 'Diferencia B − A', sym: 'B − A', regions: ['b-only'], field: 'diferenciaBA', sqlField: 'diferenciaBA',
+      def: 'B − A = { x | x ∈ B ∧ x ∉ A }',
+      card: (a,b,i) => `|B − A| = |B| − |A ∩ B| = ${b} − ${i} = ${b - i}`,
+    },
+    diferenciaSimetrica: {
+      name: 'Diferencia simétrica', sym: 'A Δ B', regions: ['a-only','b-only'], field: 'diferenciaSimetrica', sqlField: 'diferenciaSimetrica',
+      def: 'A Δ B = (A − B) ∪ (B − A)',
+      card: (a,b,i,u) => `|A Δ B| = |A ∪ B| − |A ∩ B| = ${u} − ${i} = ${u - i}`,
+    },
+  };
+  const order = ['union','interseccion','diferenciaAB','diferenciaBA','diferenciaSimetrica'];
+
+  let lastData = null;
+  let currentOp = 'union';
+
+  const selector = document.getElementById('opSelector');
+  order.forEach((key)=>{
+    const btn = document.createElement('button');
+    btn.className = 'op-btn'; btn.type = 'button';
+    btn.dataset.op = key;
+    btn.setAttribute('aria-pressed', key === currentOp ? 'true' : 'false');
+    btn.innerHTML = '<span class="op-btn__sym">' + operations[key].sym + '</span><span class="op-btn__name">' + operations[key].name + '</span>';
+    btn.addEventListener('click', ()=>{ currentOp = key; renderOperation(); });
+    selector.appendChild(btn);
+  });
+
+  function renderOperation(){
+    [...selector.children].forEach(b => b.setAttribute('aria-pressed', b.dataset.op === currentOp ? 'true' : 'false'));
+    if(!lastData) return;
+    const op = operations[currentOp];
+
+    Object.entries(regionEls).forEach(([name, el])=>{
+      el.classList.toggle('is-active', op.regions.includes(name));
+    });
+    Object.entries(countEls).forEach(([name, el])=>{
+      el.classList.toggle('is-active', op.regions.includes(name));
+    });
+
+    const matches = lastData[op.field];
+    const aCount = lastData.a.length, bCount = lastData.b.length, iCount = lastData.interseccion.length, uCount = lastData.union.length;
+
+    document.getElementById('resultCount').textContent = matches.length;
+    document.getElementById('resultLabel').textContent = op.name;
+    document.getElementById('resultDef').textContent = op.def;
+    document.getElementById('resultCard').textContent = op.card(aCount, bCount, iCount, uCount);
+    document.getElementById('resultSql').textContent = lastData.sql[op.sqlField];
+    document.getElementById('resultSqlMeta').textContent = matches.length + ' filas';
+
+    const aIds = new Set(lastData.a.map(c => c.cliente_id));
+    const bIds = new Set(lastData.b.map(c => c.cliente_id));
+    const list = document.getElementById('resultList');
+    list.innerHTML = '';
+    if(matches.length === 0){
+      const li = document.createElement('li');
+      li.className = 't-small'; li.textContent = 'Conjunto vacío (∅) para esta operación.';
+      list.appendChild(li);
+    } else {
+      matches.forEach(c=>{
+        const inA = aIds.has(c.cliente_id), inB = bIds.has(c.cliente_id);
+        const both = inA && inB;
+        const li = document.createElement('li');
+        li.className = 'chip ' + (both ? 'chip--both' : (inA ? 'chip--a' : 'chip--b'));
+        li.innerHTML = '<span class="chip__tag">' + (both ? 'A·B' : (inA ? 'A' : 'B')) + '</span>' + c.nombre;
+        list.appendChild(li);
+      });
+    }
+  }
+
+  async function fetchCategorias(){
+    const res = await fetch('api/categorias');
+    if(!res.ok) throw new Error('No se pudieron cargar las categorías');
+    return res.json();
+  }
+  async function fetchUniverso(){
+    const res = await fetch('api/universo');
+    if(!res.ok) throw new Error('No se pudo cargar el universo de clientes');
+    return res.json();
+  }
+  async function fetchConjuntos(catA, catB){
+    const res = await fetch('api/conjuntos?catA=' + encodeURIComponent(catA) + '&catB=' + encodeURIComponent(catB));
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error || 'Error al consultar conjuntos');
+    return data;
+  }
+
+  async function runConsulta(){
+    const selA = document.getElementById('selA');
+    const selB = document.getElementById('selB');
+    const statusEl = document.getElementById('statusMsg');
+    const catA = selA.value, catB = selB.value;
+
+    if(catA === catB){
+      statusEl.textContent = 'A y B deben ser categorías distintas.';
+      return;
+    }
+    statusEl.textContent = 'Consultando PostgreSQL…';
+
+    try {
+      const data = await fetchConjuntos(catA, catB);
+      lastData = data;
+      document.getElementById('defA').textContent = 'A = { c ∈ Clientes | c compró en ' + catA + ' }';
+      document.getElementById('defB').textContent = 'B = { c ∈ Clientes | c compró en ' + catB + ' }';
+      document.getElementById('vennLabelA').textContent = 'A · ' + catA;
+      document.getElementById('vennLabelB').textContent = 'B · ' + catB;
+      document.getElementById('statA').textContent = data.a.length;
+      document.getElementById('statB').textContent = data.b.length;
+      document.getElementById('totalClientes').textContent = data.totalClientes;
+      document.getElementById('universeLabel').textContent = 'Universo: ' + data.totalClientes + ' clientes';
+
+      const aOnly = data.diferenciaAB.length, bOnly = data.diferenciaBA.length, inter = data.interseccion.length;
+      document.getElementById('countAOnly').textContent = aOnly;
+      document.getElementById('countBOnly').textContent = bOnly;
+      document.getElementById('countInt').textContent = inter;
+
+      const outside = data.totalClientes - data.union.length;
+      document.getElementById('outsideLabel').textContent = 'fuera de A ∪ B (' + outside + ')';
+
+      statusEl.textContent = 'Última consulta: ' + new Date().toLocaleTimeString();
+      renderOperation();
+    } catch (err) {
+      statusEl.textContent = err.message;
+    }
+  }
+
+  async function runCartesiano(){
+    const minGasto = Number(document.getElementById('minGasto').value);
+    document.getElementById('minGastoLabel').textContent = 'Q ' + minGasto.toLocaleString('en-US');
+    const statusEl = document.getElementById('cartStatus');
+    statusEl.textContent = 'Consultando PostgreSQL…';
+    try {
+      const res = await fetch('api/cartesiano?minGasto=' + encodeURIComponent(minGasto));
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || 'Error al consultar el producto cartesiano');
+
+      document.getElementById('statV').textContent = data.vip.length;
+      document.getElementById('statC').textContent = data.cupones.length;
+      document.getElementById('statVC').textContent = data.pares.length;
+      document.getElementById('cartSql').textContent = data.sql;
+      document.getElementById('cartSqlMeta').textContent = data.pares.length + ' filas';
+
+      const table = document.getElementById('cartTable');
+      table.querySelectorAll('thead, tbody').forEach(n => n.remove());
+
+      const thead = document.createElement('thead');
+      thead.innerHTML = '<tr><th>#</th><th>Cliente VIP</th><th class="is-num">Gasto</th><th>Cupón</th></tr>';
+      table.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      if(data.pares.length === 0){
+        tbody.innerHTML = '<tr><td colspan="4" class="t-small">Ningún cliente supera ese umbral de gasto (conjunto V vacío).</td></tr>';
+      } else {
+        data.pares.forEach((p, i) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td class="is-index">' + String(i + 1).padStart(2, '0') + '</td>' +
+            '<td>' + p.nombre + '</td>' +
+            '<td class="is-num">Q ' + Number(p.gasto_total).toLocaleString('en-US', {minimumFractionDigits:2}) + '</td>' +
+            '<td><span class="tag-code">' + p.codigo + '</span></td>';
+          tbody.appendChild(tr);
+        });
+      }
+      table.appendChild(tbody);
+      statusEl.textContent = 'Última consulta: ' + new Date().toLocaleTimeString();
+    } catch (err) {
+      statusEl.textContent = err.message;
+    }
+  }
+
+  document.getElementById('btnConsultar').addEventListener('click', runConsulta);
+  document.getElementById('minGasto').addEventListener('change', runCartesiano);
+
+  (async function init(){
+    try {
+      const [categorias, universo] = await Promise.all([fetchCategorias(), fetchUniverso()]);
+      const selA = document.getElementById('selA');
+      const selB = document.getElementById('selB');
+      categorias.forEach(c=>{
+        const optA = document.createElement('option'); optA.value=c.nombre; optA.textContent=c.nombre; selA.appendChild(optA);
+        const optB = document.createElement('option'); optB.value=c.nombre; optB.textContent=c.nombre; selB.appendChild(optB);
+      });
+      const nombres = categorias.map(c=>c.nombre);
+      selA.value = nombres.includes('Electrónica') ? 'Electrónica' : nombres[0];
+      selB.value = nombres.includes('Ropa') ? 'Ropa' : (nombres[1] || nombres[0]);
+      document.getElementById('totalClientes').textContent = universo.total;
+
+      await runConsulta();
+      await runCartesiano();
+    } catch (err) {
+      document.getElementById('statusMsg').textContent = err.message;
+    }
+  })();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+/* ==========================================================
+   site.css — reglas específicas del sitio que no viven en
+   tokens.css ni components.css. Solo var(--...), sin hex sueltos.
+   Requiere tokens.css y components.css cargados antes.
+   ========================================================== */
+
+/* Variante de .card en fila (tarjetas "Definir" de la Sección 1:
+   selector + |A| + definición en una sola tarjeta horizontal). */
+.card--row { flex-direction: row; flex-wrap: wrap; align-items: flex-end; gap: 20px 32px; }
+.stat--end { align-items: flex-end; }
+
+/* La Sección 2 (estado vacío) debe caber sin scroll en una pantalla
+   de laptop (1440×900, MacBook Air 13" a pantalla completa).
+   .empty trae más aire vertical por defecto del que cabe ahí. */
+.empty { padding-top: 56px; padding-bottom: 64px; gap: 48px 80px; }
+
+/* GeoGebra se monta con su propia API JS dentro de un <div> (no un
+   <iframe>), así que el punto de montaje toma el tamaño que
+   components.css le da a ".viewer iframe". */
+.viewer .ggb-mount {
+  display: block;
+  width: 100%;
+  height: 560px;
+  background: var(--surface-viewer);
+}
+.viewer--tall .ggb-mount { height: 600px; }
+@media (max-width: 720px) {
+  .viewer .ggb-mount { height: 380px; }
+}
+
+/* Estado de carga/caída del applet antes de que GeoGebra responda. */
+.ggb-fallback {
+  margin: 0;
+  padding: var(--s-6);
+  text-align: center;
+  color: var(--ink-3);
+  font-size: var(--t-small);
+}
+
+/* Galería de fotos escaneadas (Sección 3, paso "Resolver"): hojas de
+   cuaderno fotografiadas tal cual, sin transcribir. Fondo blanco fijo
+   (no var(--surface)) porque es el papel de la foto, no una superficie
+   del tema — así se ve igual en claro y oscuro. */
+.scan-frame {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color var(--ease), transform var(--ease);
+}
+.scan-frame:hover { border-color: var(--accent); transform: translateY(-2px); }
+.scan-frame img { display: block; width: 100%; height: auto; }
+.scan-frame__caption {
+  padding: 10px 14px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  border-top: 1px solid var(--line);
+}
+
+/* ==========================================================
+   Diapositivas (portada / temario): pantallas completas de
+   introducción, fuera del flujo de las 4 secciones académicas.
+   ========================================================== */
+.slide {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-inline: max(24px, env(safe-area-inset-left, 0px)) max(24px, env(safe-area-inset-right, 0px));
+  padding-block: max(84px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-bottom, 0px));
+}
+.slide-mark {
+  position: absolute; top: 28px; left: max(28px, env(safe-area-inset-left, 0px));
+  display: flex; align-items: center; gap: 10px; z-index: 2;
+  font-family: var(--font-display); font-style: italic; font-size: 18px;
+  color: var(--ink); text-decoration: none;
+}
+.slide-mark .tag {
+  font-family: var(--font-mono); font-style: normal; font-size: 11px;
+  border: 1px solid var(--line-strong); padding: 1px 5px; border-radius: var(--r-1);
+}
+.slide-content { position: relative; z-index: 2; max-width: 980px; margin: 0 auto; width: 100%; }
+
+/* Fondo decorativo: dos círculos (conjuntos) a la deriva + una
+   grilla de puntos (matriz) + glifos flotantes. Puro adorno:
+   aria-hidden, nunca sobre el texto (z-index 0). */
+.slide-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.slide-bg svg { width: 100%; height: 100%; display: block; }
+.bg-dot { fill: var(--ink-3); opacity: .5; }
+.bg-circle { fill: none; stroke: var(--accent); stroke-width: 1.5; opacity: .3; transform-origin: center; }
+.bg-circle.venn-a { animation: slideDrift 18s ease-in-out infinite alternate; }
+.bg-circle.venn-b { animation: slideDrift 18s ease-in-out infinite alternate-reverse; animation-delay: -5s; }
+@keyframes slideDrift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(16px, -12px) scale(1.05); }
+}
+.bg-glyph {
+  fill: var(--ink-3); font-family: var(--font-display); font-style: italic;
+  font-size: 64px; opacity: 0; animation: glyphFloat 13s ease-in-out infinite;
+}
+@keyframes glyphFloat {
+  0%   { transform: translateY(18px); opacity: 0; }
+  15%  { opacity: .4; }
+  85%  { opacity: .4; }
+  100% { transform: translateY(-18px); opacity: 0; }
+}
+
+/* Entrada de texto: cada bloque se anima una vez al cargar. */
+.enter { animation: enterUp .7s cubic-bezier(.16,1,.3,1) both; }
+@keyframes enterUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-circle, .bg-glyph { animation: none !important; opacity: .3; }
+  .enter { animation: none; }
+}
+
+/* Controles flotantes de navegación (anterior/siguiente), inyectados
+   por shared/slidenav.js en TODAS las páginas de la secuencia —
+   diapositivas y secciones por igual. Siempre visibles, esquina
+   inferior derecha, para no depender del mouse sobre ningún botón
+   específico (sirve para un clicker/control remoto por teclado). */
+.slidenav-controls {
+  position: fixed;
+  right: max(20px, env(safe-area-inset-right, 0px));
+  bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  display: flex; gap: 10px;
+}
+
+/* Control remoto (/control): pensado para el teléfono del presentador
+   — dos botones enormes, nada más. Envía next/prev al servidor, que
+   lo retransmite (por sondeo) a shared/slidenav.js en cada página. */
+.remote {
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column; gap: 16px;
+  padding: max(20px, env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px))
+           max(20px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px));
+}
+.remote-head { display: flex; justify-content: space-between; align-items: center; }
+.remote-head__title { font-family: var(--font-display); font-style: italic; font-size: 20px; color: var(--ink); }
+.remote-btn {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  border-radius: var(--r-2); border: 1px solid var(--line-strong); background: var(--surface);
+  color: var(--ink); font-family: var(--font-display); font-size: 28px;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.remote-btn:active { background: var(--surface-2); }
+.remote-btn--next { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.remote-btn--next:active { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+/* Vistas de animación (/vista-1 … /vista-4): título + descripción +
+   un diagrama grande en bucle automático, sin cifras dentro del
+   dibujo. Reutilizan el mismo patrón .slide de portada. */
+.vista-diagram { display: block; position: relative; width: min(42vw, 460px); aspect-ratio: 3 / 2; }
+.vista-diagram svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+/* 01 · Conjuntos — dos círculos que se acercan, se superponen y se
+   separan; el solape mismo (dos rellenos translúcidos del mismo
+   acento) es la "intersección", sin necesidad de recortes ni texto. */
+.ic-sets-a { fill: var(--accent); fill-opacity: .22; stroke: var(--accent); stroke-width: 2; }
+.ic-sets-b {
+  fill: var(--accent); fill-opacity: .22; stroke: var(--accent); stroke-width: 2;
+  animation: agendaSetsB 9s ease-in-out infinite;
+}
+@keyframes agendaSetsB {
+  0%, 12%   { transform: translateX(0); }
+  32%, 45%  { transform: translateX(58px); }
+  65%, 100% { transform: translateX(0); }
+}
+
+/* 02 · Matrices — grilla de puntos entre corchetes, con un barrido
+   diagonal de opacidad (fila × columna, como el escaneo de un
+   producto de matrices), sin números. */
+.ic-matrix-frame { fill: none; stroke: var(--ink-3); stroke-width: 2; }
+.ic-matrix-dot { fill: var(--accent); animation: agendaMatrixPulse 2.4s ease-in-out infinite; }
+@keyframes agendaMatrixPulse {
+  0%, 100% { opacity: .16; }
+  50%      { opacity: 1; }
+}
+
+/* Plano cartesiano estático (ejes + grilla), compartido por las
+   vistas 03 y 04 como el "lienzo" sobre el que ocurre la animación. */
+.cart-grid { fill: none; stroke: var(--ink-3); stroke-width: 1; opacity: .25; }
+.cart-axis { fill: none; stroke: var(--ink-3); stroke-width: 2; }
+
+/* 03 · Sistemas de ecuaciones — tres rectas que se van DIBUJANDO
+   (trazo, no rotación) sobre el plano cartesiano, una tras otra,
+   hasta cruzarse en el punto solución; el punto pulsa al completarse
+   y luego las rectas se borran para repetir el ciclo. */
+.eqline { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
+.eqline--a { stroke-dasharray: 215; animation: eqDrawA 9s ease-in-out infinite; }
+.eqline--b { stroke-dasharray: 200; animation: eqDrawB 9s ease-in-out infinite; animation-delay: -0.9s; }
+.eqline--c { stroke-dasharray: 195; animation: eqDrawC 9s ease-in-out infinite; animation-delay: -1.8s; }
+@keyframes eqDrawA { 0%, 8% { stroke-dashoffset: 215; } 35%, 80% { stroke-dashoffset: 0; } 94%, 100% { stroke-dashoffset: 215; } }
+@keyframes eqDrawB { 0%, 8% { stroke-dashoffset: 200; } 35%, 80% { stroke-dashoffset: 0; } 94%, 100% { stroke-dashoffset: 200; } }
+@keyframes eqDrawC { 0%, 8% { stroke-dashoffset: 195; } 35%, 80% { stroke-dashoffset: 0; } 94%, 100% { stroke-dashoffset: 195; } }
+.eqpoint { fill: var(--accent); opacity: 0; animation: eqPointPulse 9s ease-in-out infinite; }
+@keyframes eqPointPulse {
+  0%, 30%, 94%, 100% { opacity: 0; r: 2; }
+  40%, 80%           { opacity: 1; r: 4.5; }
+}
+
+/* 04 · Espacios vectoriales — un cuadrado 2D sobre el plano cartesiano
+   se extruye en un cubo real: cara trasera + 4 aristas de profundidad
+   (transform-style: preserve-3d, translateZ de verdad, no un dibujo
+   isométrico). El plano cartesiano (grilla + ejes) vive DENTRO de la
+   misma escena 3D que el cubo (.scene3d), así que gira junto con él
+   como una sola pieza rígida — no es un fondo plano aparte. */
+.cube-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; perspective: 760px; }
+.scene3d {
+  position: relative; width: 230px; height: 150px;
+  transform-style: preserve-3d;
+  animation: cubeRotate 9s ease-in-out infinite;
+}
+@keyframes cubeRotate {
+  0%, 14%   { transform: rotateX(0deg) rotateY(0deg); }
+  45%, 68%  { transform: rotateX(-26deg) rotateY(34deg); }
+  100%      { transform: rotateX(0deg) rotateY(0deg); }
+}
+
+/* El piso: grilla por gradiente repetido + dos ejes con flecha,
+   plano (z=0), parte rígida de .scene3d. */
+.plane-floor {
+  position: absolute; left: 20px; top: 0px; width: 200px; height: 128px;
+  background-image:
+    linear-gradient(to right, var(--ink-3) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ink-3) 1px, transparent 1px);
+  background-size: 50px 42.6px;
+  opacity: .3;
+}
+.plane-axis { position: absolute; background: var(--ink-3); }
+.plane-axis--x { left: 20px; top: 127px; width: 212px; height: 2px; }
+.plane-axis--y { left: 19px; top: 0px; width: 2px; height: 129px; }
+.plane-arrow { position: absolute; width: 0; height: 0; border: 5px solid transparent; }
+.plane-arrow--x { left: 230px; top: 123px; border-left-color: var(--ink-3); border-right-width: 0; }
+.plane-arrow--y { left: 15px; top: -1px; border-bottom-color: var(--ink-3); border-top-width: 0; }
+
+.cube {
+  position: absolute; left: 68px; top: 16px; width: 86px; height: 86px;
+  transform-style: preserve-3d;
+}
+.cube-face {
+  position: absolute; inset: 0;
+  border: 2px solid var(--accent);
+  background: var(--accent);
+}
+.cube-face--front { opacity: .14; transform: translateZ(0px); }
+.cube-face--back { opacity: 0; transform: translateZ(-86px); animation: cubeDepthFade 9s ease-in-out infinite; }
+@keyframes cubeDepthFade { 0%, 14%, 100% { opacity: 0; } 45%, 68% { opacity: .14; } }
+.cube-edge {
+  position: absolute; width: 86px; height: 2px; background: var(--ink-3);
+  transform-origin: 0 50%; opacity: 0;
+  animation: cubeDepthFadeLine 9s ease-in-out infinite;
+}
+@keyframes cubeDepthFadeLine { 0%, 14%, 100% { opacity: 0; } 45%, 68% { opacity: .65; } }
+.cube-edge--tl { top: 0px; left: 0px; transform: rotateY(90deg); }
+.cube-edge--tr { top: 0px; left: 86px; transform: rotateY(90deg); }
+.cube-edge--bl { top: 86px; left: 0px; transform: rotateY(90deg); }
+.cube-edge--br { top: 86px; left: 86px; transform: rotateY(90deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ic-sets-b, .ic-matrix-dot,
+  .eqline--a, .eqline--b, .eqline--c, .eqpoint,
+  .scene3d, .cube-face--back, .cube-edge {
+    animation: none !important;
+  }
+  .ic-matrix-dot { opacity: .7; }
+  .eqline--a, .eqline--b, .eqline--c { stroke-dashoffset: 0; }
+}

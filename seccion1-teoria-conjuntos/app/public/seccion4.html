@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>04 · Espacios vectoriales — Álgebra Lineal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body data-active-section="4">
+
+<main class="container page">
+
+  <div class="page-head">
+    <div class="page-head__meta">
+      <span class="label">Pestaña 04 / 04</span>
+      <span class="label" style="color: var(--ink-2)">Caso · motores de física</span>
+    </div>
+    <div class="page-head__main">
+      <h1 class="t-display">Espacios vectoriales <em class="accent">R² y R³</em></h1>
+      <p class="t-lead">Unity y Unreal mueven cada objeto de la escena con cinco operaciones vectoriales. Las seguimos en un paquete que sale de una banda de empaque, cae y rebota contra el piso del almacén.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">1 — Operaciones</span>
+        <h2 class="t-h2">Cinco herramientas del motor</h2>
+      </div>
+    </div>
+    <div class="grid-auto" style="--min: 380px">
+      <article class="card">
+        <span class="label">01 · Suma</span>
+        <span class="t-math" style="font-size: 32px">u + v = (u<sub>1</sub>+v<sub>1</sub>, u<sub>2</sub>+v<sub>2</sub>, u<sub>3</sub>+v<sub>3</sub>)</span>
+        <p>Combina fuerzas: la velocidad del paquete más el empuje de la banda da su velocidad real.</p>
+        <div class="card__foot"><span>Unity · a + b</span><span>/</span><span>Unreal · A + B</span></div>
+      </article>
+      <article class="card">
+        <span class="label">02 · Producto por escalar</span>
+        <span class="t-math" style="font-size: 32px">k·v = (k v<sub>1</sub>, k v<sub>2</sub>, k v<sub>3</sub>)</span>
+        <p>Escala sin girar: multiplicar la velocidad por Δt da cuánto se desplaza el objeto en un cuadro.</p>
+        <div class="card__foot"><span>Unity · v * k</span><span>/</span><span>Unreal · V * k</span></div>
+      </article>
+      <article class="card">
+        <span class="label">03 · Producto punto</span>
+        <span class="t-math" style="font-size: 32px">u·v = u<sub>1</sub>v<sub>1</sub> + u<sub>2</sub>v<sub>2</sub> + u<sub>3</sub>v<sub>3</sub> = |u||v| cos θ</span>
+        <p>Mide alineación: si es negativo, el paquete se mueve hacia el piso y hay que calcular el rebote.</p>
+        <div class="card__foot"><span>Unity · Vector3.Dot</span><span>/</span><span>Unreal · FVector::DotProduct</span></div>
+      </article>
+      <article class="card">
+        <span class="label">04 · Producto cruz · solo R³</span>
+        <span class="t-math" style="font-size: 28px">u × v = (u<sub>2</sub>v<sub>3</sub>−u<sub>3</sub>v<sub>2</sub>, u<sub>3</sub>v<sub>1</sub>−u<sub>1</sub>v<sub>3</sub>, u<sub>1</sub>v<sub>2</sub>−u<sub>2</sub>v<sub>1</sub>)</span>
+        <p>Da un vector perpendicular a ambos: así se obtiene la normal de una superficie a partir de dos de sus aristas.</p>
+        <div class="card__foot"><span>Unity · Vector3.Cross</span><span>/</span><span>Unreal · FVector::CrossProduct</span></div>
+      </article>
+      <article class="card card--accent">
+        <span class="label">05 · Normalización</span>
+        <span class="t-math" style="font-size: 32px">v̂ = v / |v|,  |v̂| = 1</span>
+        <p>Conserva solo la dirección. La fórmula de reflexión exige una normal unitaria n̂.</p>
+        <div class="card__foot"><span>Unity · v.normalized</span><span>/</span><span>Unreal · V.GetSafeNormal()</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="grid-auto" style="--min: 520px; gap: 48px">
+    <div class="section">
+      <div class="section-head">
+        <div class="section-head__title">
+          <span class="label">2 — Movimiento</span>
+          <h2 class="t-h2" style="font-size: var(--t-h3)">Ecuación de posición</h2>
+        </div>
+      </div>
+      <figure class="formula">
+        <span class="formula__expr">r(t) = r<sub>0</sub> + v<sub>0</sub>t + ½ a t²</span>
+      </figure>
+      <dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0,1fr); gap: 12px 24px">
+        <dt class="t-math" style="font-size: 24px; color: var(--accent)">r<sub>0</sub></dt><dd style="margin:0; color: var(--ink-2)">(0, 0, 0) — posición inicial, en la banda.</dd>
+        <dt class="t-math" style="font-size: 24px; color: var(--accent)">v<sub>0</sub>t</dt><dd style="margin:0; color: var(--ink-2)">(2, 1, 4)·t — velocidad inicial escalada por el tiempo.</dd>
+        <dt class="t-math" style="font-size: 24px; color: var(--accent)">½at²</dt><dd style="margin:0; color: var(--ink-2)">gravedad acumulada, con a = (0, 0, −2).</dd>
+      </dl>
+      <p class="t-small">El paquete toca el piso (z = 0) cuando t = 4, en el punto (8, 4, 0), con velocidad de llegada v = (2, 1, −4).</p>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-head__title">
+          <span class="label">3 — Rebote</span>
+          <h2 class="t-h2" style="font-size: var(--t-h3)">Fórmula de reflexión</h2>
+        </div>
+      </div>
+      <figure class="formula">
+        <span class="formula__expr">r = v − 2(v · n̂) n̂</span>
+      </figure>
+      <svg viewBox="0 0 560 200" role="img" aria-label="Vector v incide sobre el piso con normal n y sale reflejado como r" style="width: 100%; height: auto; display: block">
+        <path d="M40 170 L520 170" style="stroke: var(--ink-3); stroke-width: 2"/>
+        <path d="M280 170 L280 40" style="stroke: var(--ink); stroke-width: 2; stroke-dasharray: 6 6"/>
+        <path d="M276 48 L280 36 L284 48" style="fill: none; stroke: var(--ink); stroke-width: 2"/>
+        <text x="292" y="50" class="t-math" style="font-size: 22px; fill: var(--ink)">n̂</text>
+        <path d="M140 50 L272 164" style="stroke: var(--ink-2); stroke-width: 3"/>
+        <path d="M258 162 L274 166 L266 151" style="fill: none; stroke: var(--ink-2); stroke-width: 3"/>
+        <text x="168" y="92" class="t-math" style="font-size: 24px; fill: var(--ink-2)">v</text>
+        <path d="M288 164 L420 50" style="stroke: var(--accent); stroke-width: 3"/>
+        <path d="M406 52 L422 48 L416 64" style="fill: none; stroke: var(--accent); stroke-width: 3"/>
+        <text x="390" y="100" class="t-math" style="font-size: 24px; fill: var(--accent)">r</text>
+        <text x="40" y="194" class="label">superficie del piso</text>
+      </svg>
+      <p class="t-small">La componente horizontal (2, 1) no cambia; la componente vertical se invierte de −4 a +4.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-head__title">
+        <span class="label">4 — Ver</span>
+        <h2 class="t-h2">La trayectoria del paquete</h2>
+      </div>
+    </div>
+    <figure class="viewer viewer--tall">
+      <div class="viewer__bar"><span>GeoGebra 3D</span><span>Arrastrar para rotar · rueda para acercar</span></div>
+      <div id="ggb-seccion4" class="ggb-mount">
+        <p class="ggb-fallback">Cargando GeoGebra 3D… (requiere conexión a internet). Si no carga, verifica la conexión y recarga la página.</p>
+      </div>
+      <figcaption class="viewer__caption legend">
+        <span class="legend__item"><span class="legend__swatch" style="background: var(--ink)"></span>Antes del rebote</span>
+        <span class="legend__item"><span class="legend__swatch" style="background: var(--accent)"></span>Después del rebote</span>
+        <span>Impacto en (8, 4, 0)</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <footer class="page-footer">
+    <span>← <a href="seccion3.html">03 Sistemas de ecuaciones</a></span>
+    <span>Universidad Mariano Gálvez · Álgebra Lineal · Grupo 1</span>
+  </footer>
+
+</main>
+
+<script src="shared/nav.js"></script>
+<script src="shared/slidenav.js"></script>
+<script src="https://www.geogebra.org/apps/deployggb.js"></script>
+<script>
+  function cssVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+    const n = parseInt(hex, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+  const accentRgb = hexToRgb(cssVar('--accent'));
+  const inkRgb = hexToRgb(cssVar('--ink'));
+  const ink2Rgb = hexToRgb(cssVar('--ink-2'));
+  const ink3Rgb = hexToRgb(cssVar('--ink-3'));
+
+  var ggbApp4 = new GGBApplet({
+    appName: "3d",
+    width: 900,
+    height: 600,
+    showToolBar: false,
+    showAlgebraInput: false,
+    showMenuBar: false,
+    enableRightClick: false,
+    enableShiftDragZoom: true,
+    appletOnLoad: function (api) {
+      api.evalCommand("A=(0,0,0)");
+      api.evalCommand("B=(8,4,0)");
+      api.evalCommand("C=(16,8,0)");
+      api.evalCommand("pfloor: z=0");
+      api.evalCommand("SetFilling(pfloor,0.06)");
+      api.evalCommand("c1=Curve(2t,t,4t-t^2,t,0,4)");
+      api.evalCommand("c2=Curve(8+2s,4+s,4s-s^2,s,0,4)");
+      api.evalCommand("SetLineThickness(c1,5)");
+      api.evalCommand("SetLineThickness(c2,5)");
+      api.evalCommand("SetLineStyle(c2,1)");
+      api.evalCommand("vIn=Vector(B+(-2,-1,4),B)");
+      api.evalCommand("vOut=Vector(B,B+(2,1,4))");
+      api.evalCommand("SetLineThickness(vIn,4)");
+      api.evalCommand("SetLineThickness(vOut,4)");
+      api.evalCommand("SetPointSize(A,4)");
+      api.evalCommand("SetPointSize(B,5)");
+      api.evalCommand("SetPointSize(C,4)");
+      api.setCoordSystem(-2, 18, -2, 10, -2, 6);
+
+      // evalCommand("SetColor(...)") silently no-ops on this embed (verified at
+      // runtime: every object stayed #FFFFFF); the applet's own setColor()
+      // method is what actually paints the object, so colors go through it.
+      api.setColor('pfloor', ink3Rgb[0], ink3Rgb[1], ink3Rgb[2]);
+      api.setColor('c1', inkRgb[0], inkRgb[1], inkRgb[2]);
+      api.setColor('c2', accentRgb[0], accentRgb[1], accentRgb[2]);
+      api.setColor('vIn', ink2Rgb[0], ink2Rgb[1], ink2Rgb[2]);
+      api.setColor('vOut', accentRgb[0], accentRgb[1], accentRgb[2]);
+      api.setColor('A', inkRgb[0], inkRgb[1], inkRgb[2]);
+      api.setColor('B', accentRgb[0], accentRgb[1], accentRgb[2]);
+      api.setColor('C', accentRgb[0], accentRgb[1], accentRgb[2]);
+    }
+  }, true);
+  ggbApp4.inject('ggb-seccion4');
+</script>
+</body>
+</html>

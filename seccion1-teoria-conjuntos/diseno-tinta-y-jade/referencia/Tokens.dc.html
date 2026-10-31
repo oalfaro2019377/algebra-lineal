@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Sistema visual · tokens</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F5F5F2}
+a{color:#0B6B55}a:hover{color:#08503F}
+</style>
+</helmet>
+<div style="background: #F5F5F2; color: #17171A; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 18px; line-height: 1.55; min-height: 100vh">
+<div style="max-width: 1280px; margin: 0 auto; padding: 96px 48px 128px; display: flex; flex-direction: column; gap: 112px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-end; border-bottom: 1px solid #17171A; padding-bottom: 40px">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: #4A4A50">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.04em; color: #0B6B55">SISTEMA v1.0</span>
+<span>UMG · Álgebra Lineal</span>
+<span>Grupo 1</span>
+</div>
+<div style="flex: 999 1 640px; display: flex; flex-direction: column; gap: 20px">
+<h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 340; font-size: 96px; line-height: 0.95; letter-spacing: -0.025em; font-variation-settings: 'opsz' 144">Tinta <span style="font-style: italic; color: #0B6B55">y</span> Jade</h1>
+<p style="margin: 0; max-width: 720px; font-size: 22px; line-height: 1.5; color: #4A4A50">Un sistema editorial para proyectar matemáticas: tinta casi negra sobre papel piedra, un único acento verde jade y una serif de contraste óptico que se lee desde la última fila del aula.</p>
+</div>
+</header>
+
+<section style="display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 220px">
+<h2 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">§ 00 — PRINCIPIOS</h2>
+</div>
+<div style="flex: 999 1 640px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 10px; border-top: 2px solid #17171A; padding-top: 20px">
+<span style="font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.15">Legible a seis metros</span>
+<p style="margin: 0; color: #4A4A50">Cuerpo base de 20 px, contraste mínimo 7:1 en texto principal, cifras tabulares en todo dato.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; border-top: 2px solid #17171A; padding-top: 20px">
+<span style="font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.15">La consulta es la protagonista</span>
+<p style="margin: 0; color: #4A4A50">SQL, sistemas y fórmulas se muestran en bloques monoespaciados de primera clase, nunca como capturas.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; border-top: 2px solid #17171A; padding-top: 20px">
+<span style="font-family: 'Fraunces', serif; font-size: 28px; line-height: 1.15">Un solo acento</span>
+<p style="margin: 0; color: #4A4A50">El jade marca lo activo o lo calculado. Todo lo demás vive en la escala de grises cálidos.</p>
+</div>
+</div>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">§ 01 — PALETA</h2>
+<p style="margin: 0; font-size: 15px; color: #4A4A50">Mismos nombres de token en ambos modos; solo cambian los valores.</p>
+</div>
+<div style="flex: 999 1 640px; display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 24px">
+
+<div style="background: #FFFFFF; border: 1px solid #D9D8D2; border-radius: 6px; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-family: 'Fraunces', serif; font-size: 28px">Claro</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">[data-theme="light"]</span></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #F5F5F2; border: 1px solid #D9D8D2; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--bg</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#F5F5F2</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #FFFFFF; border: 1px solid #D9D8D2; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--surface</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#FFFFFF</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #ECEBE6; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--surface-2</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#ECEBE6</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #D9D8D2; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--line</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#D9D8D2</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #17171A; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--ink</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#17171A · 16.9:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #4A4A50; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--ink-2</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#4A4A50 · 8.2:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #6E6E74; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--ink-3</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#6E6E74 · 4.7:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #0B6B55; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--accent</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#0B6B55 · 6.4:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #DCEDE6; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--accent-soft</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#DCEDE6</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #FFFFFF; border: 1px solid #D9D8D2; flex: none; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #0B6B55">Aa</span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--on-accent</span><span style="font-family: 'JetBrains Mono', monospace; color: #4A4A50">#FFFFFF</span></div></div>
+</div>
+</div>
+
+<div style="background: #121314; color: #EDECE8; border-radius: 6px; padding: 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-family: 'Fraunces', serif; font-size: 28px">Oscuro</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8E8D89">[data-theme="dark"]</span></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #121314; border: 1px solid #45464B; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--bg</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#121314</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #1A1B1D; border: 1px solid #45464B; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--surface</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#1A1B1D</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #232427; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--surface-2</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#232427</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #2E2F33; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--line</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#2E2F33</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #EDECE8; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--ink</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#EDECE8 · 15.6:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #B8B7B2; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--ink-2</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#B8B7B2 · 9.6:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #8E8D89; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--ink-3</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#8E8D89 · 5.6:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #5CC9A7; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--accent</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#5CC9A7 · 9.5:1</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #173A31; flex: none"></span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--accent-soft</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#173A31</span></div></div>
+<div style="display: flex; gap: 12px; align-items: center"><span style="width: 48px; height: 48px; border-radius: 3px; background: #5CC9A7; flex: none; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #06231C">Aa</span><div style="display: flex; flex-direction: column; font-size: 14px; line-height: 1.35"><span style="font-weight: 600">--on-accent</span><span style="font-family: 'JetBrains Mono', monospace; color: #B8B7B2">#06231C</span></div></div>
+</div>
+</div>
+
+</div>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">§ 02 — TIPOGRAFÍA</h2>
+<p style="margin: 0; font-size: 15px; color: #4A4A50">Fraunces para voz editorial y resultados. Instrument Sans para interfaz y lectura. JetBrains Mono para SQL, matrices y etiquetas.</p>
+</div>
+<div style="flex: 999 1 640px; display: flex; flex-direction: column">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">display · 96/0.95<br>Fraunces 340 opsz 144</span><span style="flex: 1 1 400px; font-family: 'Fraunces', serif; font-weight: 340; font-size: 96px; line-height: 0.95; letter-spacing: -0.025em">A ∩ B</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">h1 · 72/1.0<br>Fraunces 360</span><span style="flex: 1 1 400px; font-family: 'Fraunces', serif; font-weight: 360; font-size: 72px; line-height: 1; letter-spacing: -0.02em">Sistemas de ecuaciones</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">h2 · 44/1.1<br>Fraunces 400</span><span style="flex: 1 1 400px; font-family: 'Fraunces', serif; font-size: 44px; line-height: 1.1; letter-spacing: -0.015em">Producto cartesiano</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">h3 · 28/1.2<br>Fraunces 450</span><span style="flex: 1 1 400px; font-family: 'Fraunces', serif; font-weight: 450; font-size: 28px; line-height: 1.2">Regla de Cramer</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">lead · 24/1.45<br>Instrument Sans 400</span><span style="flex: 1 1 400px; font-size: 24px; line-height: 1.45; color: #4A4A50">Cada operación es una consulta que corre en este momento.</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">body · 20/1.55<br>Instrument Sans 400</span><span style="flex: 1 1 400px; font-size: 20px; line-height: 1.55">Tres tipos de nodo comparten un presupuesto fijo de núcleos, memoria y corriente.</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">ui · 16/1.3<br>Instrument Sans 500</span><span style="flex: 1 1 400px; font-size: 16px; font-weight: 500">Diferencia simétrica</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">code · 17/1.6<br>JetBrains Mono 400</span><span style="flex: 1 1 400px; font-family: 'JetBrains Mono', monospace; font-size: 17px">SELECT nombre FROM clientes</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: baseline; padding: 24px 0; border-top: 1px solid #D9D8D2; border-bottom: 1px solid #D9D8D2"><span style="flex: 0 0 200px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">label · 13/1.3 +0.08em<br>JetBrains Mono 500</span><span style="flex: 1 1 400px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">PASO 03 — ELIMINAR x</span></div>
+</div>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">§ 03 — ESPACIADO Y RADIOS</h2>
+<p style="margin: 0; font-size: 15px; color: #4A4A50">Base 4. Las secciones respiran a 112–128 px para que cada idea quepa sola en pantalla.</p>
+</div>
+<div style="flex: 999 1 640px; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A50">
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-1 4</span><span style="width: 4px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-2 8</span><span style="width: 8px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-3 12</span><span style="width: 12px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-4 16</span><span style="width: 16px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-5 24</span><span style="width: 24px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-6 32</span><span style="width: 32px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-7 48</span><span style="width: 48px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-8 64</span><span style="width: 64px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-9 96</span><span style="width: 96px; height: 16px; background: #0B6B55"></span></div>
+<div style="display: flex; align-items: center; gap: 16px"><span style="width: 72px">--s-10 128</span><span style="width: 128px; height: 16px; background: #0B6B55"></span></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 88px; background: #FFFFFF; border: 1px solid #B9B8B1; border-radius: 0"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A50">--r-0 · 0 — tablas, banner</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 88px; background: #FFFFFF; border: 1px solid #B9B8B1; border-radius: 3px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A50">--r-1 · 3 — botón, input, código</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 88px; background: #FFFFFF; border: 1px solid #B9B8B1; border-radius: 6px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A50">--r-2 · 6 — tarjeta, visor</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="height: 88px; display: flex; align-items: center"><span style="height: 36px; width: 100%; background: #FFFFFF; border: 1px solid #B9B8B1; border-radius: 999px"></span></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #4A4A50">--r-pill · 999 — solo chips</span></div>
+</div>
+</div>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">§ 04 — TOKENS.CSS</h2>
+<p style="margin: 0; font-size: 15px; color: #4A4A50">Copiar tal cual a <span style="font-family: 'JetBrains Mono', monospace">tokens.css</span>. El modo sigue al sistema y se puede forzar con <span style="font-family: 'JetBrains Mono', monospace">data-theme</span>.</p>
+</div>
+<pre style="flex: 999 1 640px; margin: 0; background: #17171A; color: #EDECE8; border-radius: 3px; padding: 32px; font-family: 'JetBrains Mono', monospace; font-size: 15px; line-height: 1.65; overflow-x: auto; white-space: pre">:root {
+  --bg:#F5F5F2; --surface:#FFFFFF; --surface-2:#ECEBE6;
+  --line:#D9D8D2; --line-strong:#B9B8B1;
+  --ink:#17171A; --ink-2:#4A4A50; --ink-3:#6E6E74;
+  --accent:#0B6B55; --accent-soft:#DCEDE6; --on-accent:#FFFFFF;
+
+  --font-display:'Fraunces', Georgia, serif;
+  --font-ui:'Instrument Sans', system-ui, sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, monospace;
+  --t-display:96px; --t-h1:72px; --t-h2:44px; --t-h3:28px;
+  --t-lead:24px; --t-body:20px; --t-ui:16px; --t-code:17px; --t-label:13px;
+
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px; --s-10:128px;
+  --r-0:0; --r-1:3px; --r-2:6px; --r-pill:999px;
+  --nav-h:72px; --content-max:1280px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { /* mismos valores que abajo */ }
+}
+:root[data-theme="dark"] {
+  --bg:#121314; --surface:#1A1B1D; --surface-2:#232427;
+  --line:#2E2F33; --line-strong:#45464B;
+  --ink:#EDECE8; --ink-2:#B8B7B2; --ink-3:#8E8D89;
+  --accent:#5CC9A7; --accent-soft:#173A31; --on-accent:#06231C;
+}</pre>
+</section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

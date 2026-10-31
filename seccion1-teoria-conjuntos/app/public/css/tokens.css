@@ -1,0 +1,119 @@
+/* ==========================================================
+   Tinta y Jade — tokens de diseño
+   Álgebra Lineal · UMG · Grupo 1
+   No editar valores: son los del diseño aprobado.
+   ========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  color-scheme: light;
+
+  /* Color — claro */
+  --bg: #F5F5F2;
+  --bg-glass: rgba(245, 245, 242, 0.92);
+  --surface: #FFFFFF;
+  --surface-2: #ECEBE6;
+  --surface-viewer: #FAFAF8;
+  --line: #D9D8D2;
+  --line-strong: #B9B8B1;
+  --ink: #17171A;
+  --ink-2: #4A4A50;
+  --ink-3: #6E6E74;
+  --accent: #0B6B55;
+  --accent-hover: #08503F;
+  --accent-soft: #DCEDE6;
+  --on-accent: #FFFFFF;
+
+  /* Bloque de código: la cabecera siempre es oscura */
+  --code-head-bg: #17171A;
+  --code-head-ink: #EDECE8;
+  --code-head-ink-2: #B8B7B2;
+  --code-live: #5CC9A7;
+
+  /* Tipografía */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-ui: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --t-display: 96px;  /* lh 0.95, peso 340, tracking -0.025em */
+  --t-h1: 72px;       /* lh 1.0,  peso 360, tracking -0.02em  */
+  --t-h2: 44px;       /* lh 1.1,  peso 400, tracking -0.015em */
+  --t-h3: 28px;       /* lh 1.2,  peso 450 */
+  --t-lead: 24px;     /* lh 1.45 */
+  --t-body: 20px;     /* lh 1.55 */
+  --t-ui: 16px;       /* lh 1.3, peso 500 */
+  --t-small: 15px;
+  --t-code: 17px;     /* lh 1.6 */
+  --t-label: 13px;    /* mono 500, +0.08em, MAYÚSCULAS */
+
+  /* Espaciado (base 4) */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;  --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;  --s-10: 128px;
+  --section-gap: 104px;
+
+  /* Radios */
+  --r-0: 0;      /* tablas, banner de resultado */
+  --r-1: 3px;    /* botones, inputs, código */
+  --r-2: 6px;    /* tarjetas, visores */
+  --r-pill: 999px; /* solo chips y puntos */
+
+  /* Layout */
+  --nav-h: 72px;
+  --content-max: 1376px;   /* incluye padding lateral de 48px */
+  --gutter: 48px;
+
+  --ease: 120ms ease;
+}
+
+/* Oscuro: sigue al sistema salvo que se fuerce claro */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #121314;
+    --bg-glass: rgba(18, 19, 20, 0.92);
+    --surface: #1A1B1D;
+    --surface-2: #232427;
+    --surface-viewer: #141517;
+    --line: #2E2F33;
+    --line-strong: #45464B;
+    --ink: #EDECE8;
+    --ink-2: #B8B7B2;
+    --ink-3: #8E8D89;
+    --accent: #5CC9A7;
+    --accent-hover: #8FE0C6;
+    --accent-soft: #173A31;
+    --on-accent: #06231C;
+  }
+}
+
+/* Oscuro forzado */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121314;
+  --bg-glass: rgba(18, 19, 20, 0.92);
+  --surface: #1A1B1D;
+  --surface-2: #232427;
+  --surface-viewer: #141517;
+  --line: #2E2F33;
+  --line-strong: #45464B;
+  --ink: #EDECE8;
+  --ink-2: #B8B7B2;
+  --ink-3: #8E8D89;
+  --accent: #5CC9A7;
+  --accent-hover: #8FE0C6;
+  --accent-soft: #173A31;
+  --on-accent: #06231C;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --t-display: 56px;
+    --t-h1: 48px;
+    --t-h2: 32px;
+    --t-lead: 20px;
+    --t-body: 18px;
+    --gutter: 16px;
+    --section-gap: 72px;
+  }
+}

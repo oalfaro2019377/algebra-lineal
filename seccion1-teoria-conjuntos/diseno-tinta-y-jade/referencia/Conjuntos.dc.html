@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>01 · Teoría de conjuntos</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#F5F5F2}
+a{color:#0B6B55}a:hover{color:#08503F}
+</style>
+</helmet>
+<div style="background: #F5F5F2; color: #17171A; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 20px; line-height: 1.55; min-height: 100vh">
+
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(245,245,242,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #D9D8D2">
+<div style="max-width: 1376px; margin: 0 auto; padding: 0 48px; display: flex; flex-wrap: wrap; align-items: stretch; gap: 0 32px">
+<div style="display: flex; align-items: center; gap: 10px; min-height: 72px">
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; letter-spacing: -0.01em">TecnoModa</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid #17171A; padding: 1px 5px; border-radius: 3px">GT</span>
+</div>
+<nav aria-label="Secciones" style="display: flex; flex: 1 1 auto; overflow-x: auto">
+<a href="Conjuntos.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid #0B6B55; color: #17171A; text-decoration: none; font-weight: 600; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #0B6B55">01</span>Conjuntos</a>
+<a href="Matrices.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #4A4A50; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">02</span>Matrices</a>
+<a href="Sistemas.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #4A4A50; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">03</span>Sistemas de ecuaciones</a>
+<a href="Vectores.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #4A4A50; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">04</span>Espacios vectoriales</a>
+</nav>
+<div style="display: flex; align-items: center; font-size: 14px; color: #6E6E74; min-height: 72px">UMG · Grupo 1</div>
+</div>
+</header>
+
+<main style="max-width: 1376px; margin: 0 auto; padding: 88px 48px 128px; display: flex; flex-direction: column; gap: 104px">
+
+<section style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: flex-end">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">PESTAÑA 01 / 04</span>
+<span style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; border: 1px solid #0B6B55; border-radius: 3px; padding: 4px 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #0B6B55"><span style="width: 8px; height: 8px; border-radius: 999px; background: #0B6B55"></span>PostgreSQL · en vivo</span>
+</div>
+<div style="flex: 999 1 720px; display: flex; flex-direction: column; gap: 20px">
+<h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 340; font-size: 96px; line-height: 0.95; letter-spacing: -0.025em">Teoría de conjuntos</h1>
+<p style="margin: 0; max-width: 760px; font-size: 24px; line-height: 1.45; color: #4A4A50">Dos grupos de clientes de TecnoModa GT. Cada operación se traduce a SQL y se ejecuta contra la base de datos en el momento en que la eliges.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; border-top: 1px solid #17171A; padding-top: 20px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">1 — DEFINIR</span>
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.1">Los conjuntos</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 24px">
+<div style="background: #FFFFFF; border: 1px solid #D9D8D2; border-radius: 6px; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: flex-end">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px">
+<label for="setA" style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="width: 22px; height: 0; border-top: 2px solid #17171A"></span>Conjunto A</label>
+<select id="setA" style="height: 52px; padding: 0 14px; border: 1px solid #B9B8B1; border-radius: 3px; background: #FFFFFF; color: #17171A; font-family: 'Instrument Sans', sans-serif; font-size: 19px"><option>Electrónica</option><option>Ropa</option><option>Hogar</option><option>Accesorios</option></select>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">|A|</span><span style="font-family: 'Fraunces', serif; font-size: 52px; line-height: 1; font-variant-numeric: tabular-nums">{{nA}}</span></div>
+<p style="flex: 1 1 100%; margin: 0; font-family: 'Fraunces', serif; font-style: italic; font-size: 20px; color: #4A4A50">A = { c ∈ Clientes | c compró en Electrónica }</p>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #D9D8D2; border-radius: 6px; padding: 28px 32px; display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: flex-end">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 8px">
+<label for="setB" style="display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600"><span style="width: 22px; height: 0; border-top: 2px dashed #17171A"></span>Conjunto B</label>
+<select id="setB" style="height: 52px; padding: 0 14px; border: 1px solid #B9B8B1; border-radius: 3px; background: #FFFFFF; color: #17171A; font-family: 'Instrument Sans', sans-serif; font-size: 19px"><option>Ropa</option><option>Electrónica</option><option>Hogar</option><option>Accesorios</option></select>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">|B|</span><span style="font-family: 'Fraunces', serif; font-size: 52px; line-height: 1; font-variant-numeric: tabular-nums">{{nB}}</span></div>
+<p style="flex: 1 1 100%; margin: 0; font-family: 'Fraunces', serif; font-style: italic; font-size: 20px; color: #4A4A50">B = { c ∈ Clientes | c compró en Ropa }</p>
+</div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; border-top: 1px solid #17171A; padding-top: 20px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">2 — OPERAR</span>
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.1">Elige una operación</h2>
+</div>
+<div role="group" aria-label="Operación entre conjuntos" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+<sc-for list="{{ops}}" as="op" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{op.pressed}}" onClick="{{op.pick}}" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 84px; padding: 14px 20px; border-radius: 3px; border: 1px solid {{op.border}}; background: {{op.bg}}; color: {{op.fg}}; font-family: 'Instrument Sans', sans-serif; text-align: left; cursor: pointer"><span style="font-family: 'Fraunces', serif; font-size: 30px; line-height: 1">{{op.sym}}</span><span style="font-size: 15px; font-weight: 500">{{op.name}}</span></button>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<figure style="flex: 1 1 540px; margin: 0; background: #FFFFFF; border: 1px solid #D9D8D2; border-radius: 6px; padding: 28px 32px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74"><span>DIAGRAMA DE VENN</span><span>Universo: clientes con compras</span></div>
+<svg viewBox="0 0 560 380" role="img" aria-label="{{vennLabel}}" style="width: 100%; height: auto; display: block">
+<defs>
+<clipPath id="clipA"><circle cx="210" cy="200" r="150"></circle></clipPath>
+<mask id="notB"><rect x="0" y="0" width="560" height="380" style="fill: #FFFFFF"></rect><circle cx="350" cy="200" r="150" style="fill: #000000"></circle></mask>
+<mask id="notA"><rect x="0" y="0" width="560" height="380" style="fill: #FFFFFF"></rect><circle cx="210" cy="200" r="150" style="fill: #000000"></circle></mask>
+</defs>
+<circle cx="210" cy="200" r="150" style="fill: {{v.aFill}}; mask: url(#notB)"></circle>
+<circle cx="350" cy="200" r="150" style="fill: {{v.bFill}}; mask: url(#notA)"></circle>
+<circle cx="350" cy="200" r="150" style="fill: {{v.iFill}}; clip-path: url(#clipA)"></circle>
+<circle cx="210" cy="200" r="150" style="fill: none; stroke: #17171A; stroke-width: 2"></circle>
+<circle cx="350" cy="200" r="150" style="fill: none; stroke: #17171A; stroke-width: 2; stroke-dasharray: 9 7"></circle>
+<text x="120" y="38" style="font-family: 'Instrument Sans', sans-serif; font-size: 17px; font-weight: 600; fill: #17171A">A · Electrónica</text>
+<text x="440" y="38" style="font-family: 'Instrument Sans', sans-serif; font-size: 17px; font-weight: 600; fill: #17171A; text-anchor: end">B · Ropa</text>
+<text x="140" y="218" style="font-family: 'Fraunces', serif; font-size: 52px; fill: {{v.aText}}; text-anchor: middle">{{nAonly}}</text>
+<text x="280" y="218" style="font-family: 'Fraunces', serif; font-size: 52px; fill: {{v.iText}}; text-anchor: middle">{{nI}}</text>
+<text x="420" y="218" style="font-family: 'Fraunces', serif; font-size: 52px; fill: {{v.bText}}; text-anchor: middle">{{nBonly}}</text>
+</svg>
+<figcaption style="display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 15px; color: #4A4A50"><span style="display: flex; align-items: center; gap: 8px"><span style="width: 14px; height: 14px; background: #0B6B55; border-radius: 2px"></span>Región activa</span><span>Línea continua: A</span><span>Línea punteada: B</span></figcaption>
+</figure>
+
+<div style="flex: 1 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid #D9D8D2; padding-bottom: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #0B6B55">RESULTADO</span>
+<span style="font-family: 'Fraunces', serif; font-weight: 400; font-size: 40px; line-height: 1.05">{{cur.name}}</span>
+</div>
+<span style="font-family: 'Fraunces', serif; font-weight: 340; font-size: 88px; line-height: 0.9; color: #0B6B55; font-variant-numeric: tabular-nums">{{count}}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 22px">{{cur.def}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; color: #4A4A50">{{cur.card}}</span>
+</div>
+<div style="border: 1px solid #17171A; border-radius: 3px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 16px; background: #17171A; color: #EDECE8; font-family: 'JetBrains Mono', monospace; font-size: 13px">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 999px; background: #5CC9A7"></span>postgres · tecnomoda · SQL ejecutado</span>
+<span style="color: #B8B7B2">{{count}} filas · 14 ms</span>
+</div>
+<pre style="margin: 0; padding: 18px 16px; background: #FFFFFF; color: #17171A; font-family: 'JetBrains Mono', monospace; font-size: 15px; line-height: 1.6; overflow-x: auto; white-space: pre">{{cur.sql}}</pre>
+</div>
+<ul aria-label="Clientes devueltos" style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+<li style="display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border: {{r.border}}; border-radius: 999px; background: {{r.bg}}; font-size: 17px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{r.tagColor}}">{{r.tag}}</span>{{r.name}}</li>
+</sc-for>
+</ul>
+</div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; border-top: 1px solid #17171A; padding-top: 20px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">3 — COMBINAR</span>
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.1">Producto cartesiano</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: flex-start">
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 24px">
+<p style="margin: 0; font-size: 20px; color: #4A4A50">Cada cliente VIP se empareja con cada cupón disponible. El umbral define quién es VIP según su gasto acumulado.</p>
+<p style="margin: 0; font-family: 'Fraunces', serif; font-style: italic; font-size: 26px; line-height: 1.3">V × C = { (v, c) | v ∈ V, c ∈ C }</p>
+<div style="display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border: 1px solid #D9D8D2; border-radius: 6px; padding: 24px 28px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap">
+<label for="umbral" style="font-size: 15px; font-weight: 600">Umbral VIP · gasto ≥</label>
+<span style="font-family: 'Fraunces', serif; font-size: 32px; font-variant-numeric: tabular-nums">{{umbralLabel}}</span>
+</div>
+<input id="umbral" type="range" min="3000" max="9000" step="250" value="{{umbral}}" onChange="{{setUmbral}}" style="width: 100%; accent-color: #0B6B55; height: 32px">
+<div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6E6E74"><span>Q 3,000</span><span>Q 9,000</span></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #17171A; border-bottom: 1px solid #D9D8D2">
+<div style="padding: 16px 0; display: flex; flex-direction: column"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">|V|</span><span style="font-family: 'Fraunces', serif; font-size: 48px; line-height: 1.05">{{nV}}</span></div>
+<div style="padding: 16px 0; display: flex; flex-direction: column; border-left: 1px solid #D9D8D2; padding-left: 16px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6E6E74">|C|</span><span style="font-family: 'Fraunces', serif; font-size: 48px; line-height: 1.05">3</span></div>
+<div style="padding: 16px 0; display: flex; flex-direction: column; border-left: 1px solid #D9D8D2; padding-left: 16px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #0B6B55">|V × C|</span><span style="font-family: 'Fraunces', serif; font-size: 48px; line-height: 1.05; color: #0B6B55">{{nPairs}}</span></div>
+</div>
+<div style="border: 1px solid #17171A; border-radius: 3px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 16px; background: #17171A; color: #EDECE8; font-family: 'JetBrains Mono', monospace; font-size: 13px"><span style="display: flex; align-items: center; gap: 8px"><span style="width: 8px; height: 8px; border-radius: 999px; background: #5CC9A7"></span>CROSS JOIN</span><span style="color: #B8B7B2">{{nPairs}} filas · 9 ms</span></div>
+<pre style="margin: 0; padding: 18px 16px; background: #FFFFFF; color: #17171A; font-family: 'JetBrains Mono', monospace; font-size: 15px; line-height: 1.6; overflow-x: auto; white-space: pre">{{cartSql}}</pre>
+</div>
+</div>
+<div style="flex: 1 1 520px; min-width: 0; overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; font-size: 18px; font-variant-numeric: tabular-nums">
+<caption style="text-align: left; padding-bottom: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #6E6E74">PARES (v, c) DEVUELTOS</caption>
+<thead><tr style="border-bottom: 1px solid #17171A">
+<th style="text-align: left; padding: 10px 12px 10px 0; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">#</th>
+<th style="text-align: left; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">CLIENTE VIP</th>
+<th style="text-align: right; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">GASTO</th>
+<th style="text-align: left; padding: 10px 0 10px 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; color: #6E6E74">CUPÓN</th>
+</tr></thead>
+<tbody>
+<sc-for list="{{pairs}}" as="p" hint-placeholder-count="9">
+<tr style="border-bottom: 1px solid #D9D8D2; background: {{p.bg}}">
+<td style="padding: 12px 12px 12px 0; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #6E6E74">{{p.n}}</td>
+<td style="padding: 12px; font-weight: 500">{{p.cliente}}</td>
+<td style="padding: 12px; text-align: right; color: #4A4A50">{{p.gasto}}</td>
+<td style="padding: 12px 0 12px 12px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; border: 1px solid #B9B8B1; border-radius: 3px; padding: 2px 8px">{{p.cupon}}</span></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+
+<footer style="border-top: 1px solid #D9D8D2; padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #6E6E74">
+<span>Nombres y montos de ejemplo en esta maqueta; en el sitio provienen de la base tecnomoda.</span>
+<span>Siguiente → <a href="Matrices.dc.html">02 Matrices</a></span>
+</footer>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2700}}'>
+class Component extends DCLogic {
+renderVals() {
+const op = (this.state && this.state.op) || 'inter';
+const umbral = (this.state && this.state.umbral) || 5000;
+const A = ['Ana López','Carlos Pérez','Diego Morales','Lucía Hernández','Mario García','Sofía Ramírez','Javier Castillo','Valeria Ortiz','Andrés Molina'];
+const B = ['Lucía Hernández','Mario García','Sofía Ramírez','Javier Castillo','Fernanda Cruz','Gabriela Reyes','José Méndez','Paola Juárez','Ricardo Flores','Elena Barrios'];
+const sA = new Set(A), sB = new Set(B);
+const I = A.filter(x => sB.has(x));
+const Aonly = A.filter(x => !sB.has(x));
+const Bonly = B.filter(x => !sA.has(x));
+const base = (cat) => "SELECT c.nombre\n  FROM clientes c\n  JOIN pedidos p ON p.cliente_id = c.id\n WHERE p.categoria = '" + cat + "'";
+const defs = {
+union: { sym: 'A ∪ B', name: 'Unión', def: 'A ∪ B = { x | x ∈ A ∨ x ∈ B }', card: '|A ∪ B| = |A| + |B| − |A ∩ B| = 9 + 10 − 4 = 15', sql: base('Electrónica') + '\nUNION\n' + base('Ropa') + ';', reg: [1,1,1], list: [...Aonly, ...I, ...Bonly] },
+inter: { sym: 'A ∩ B', name: 'Intersección', def: 'A ∩ B = { x | x ∈ A ∧ x ∈ B }', card: '|A ∩ B| = 4', sql: base('Electrónica') + '\nINTERSECT\n' + base('Ropa') + ';', reg: [0,1,0], list: I },
+amb: { sym: 'A − B', name: 'Diferencia A − B', def: 'A − B = { x | x ∈ A ∧ x ∉ B }', card: '|A − B| = |A| − |A ∩ B| = 9 − 4 = 5', sql: base('Electrónica') + '\nEXCEPT\n' + base('Ropa') + ';', reg: [1,0,0], list: Aonly },
+bma: { sym: 'B − A', name: 'Diferencia B − A', def: 'B − A = { x | x ∈ B ∧ x ∉ A }', card: '|B − A| = |B| − |A ∩ B| = 10 − 4 = 6', sql: base('Ropa') + '\nEXCEPT\n' + base('Electrónica') + ';', reg: [0,0,1], list: Bonly },
+sym: { sym: 'A △ B', name: 'Diferencia simétrica', def: 'A △ B = (A − B) ∪ (B − A)', card: '|A △ B| = |A ∪ B| − |A ∩ B| = 15 − 4 = 11', sql: '(' + base('Electrónica') + '\n EXCEPT\n' + base('Ropa') + ')\nUNION\n(' + base('Ropa') + '\n EXCEPT\n' + base('Electrónica') + ');', reg: [1,0,1], list: [...Aonly, ...Bonly] }
+};
+const order = ['union','inter','amb','bma','sym'];
+const ops = order.map(id => {
+const on = id === op;
+return { sym: defs[id].sym, name: defs[id].name, pressed: on ? 'true' : 'false', bg: on ? '#0B6B55' : '#FFFFFF', fg: on ? '#FFFFFF' : '#17171A', border: on ? '#0B6B55' : '#B9B8B1', pick: () => this.setState({ op: id }) };
+});
+const cur = defs[op];
+const fillOn = '#0B6B55', fillOff = '#FFFFFF';
+const v = { aFill: cur.reg[0] ? fillOn : fillOff, iFill: cur.reg[1] ? fillOn : fillOff, bFill: cur.reg[2] ? fillOn : fillOff, aText: cur.reg[0] ? '#FFFFFF' : '#6E6E74', iText: cur.reg[1] ? '#FFFFFF' : '#6E6E74', bText: cur.reg[2] ? '#FFFFFF' : '#6E6E74' };
+const rows = cur.list.map(name => {
+const inA = sA.has(name), inB = sB.has(name);
+const both = inA && inB;
+return { name, tag: both ? 'A·B' : (inA ? 'A' : 'B'), border: both ? '1px solid #0B6B55' : (inA ? '1px solid #B9B8B1' : '1px dashed #6E6E74'), bg: both ? '#DCEDE6' : '#FFFFFF', tagColor: both ? '#0B6B55' : '#6E6E74' };
+});
+const clientes = [['Lucía Hernández',8450],['Mario García',6120],['Sofía Ramírez',5780],['Ana López',4900],['Javier Castillo',4350],['Carlos Pérez',3980]];
+const cupones = ['BIENVENIDA10','ENVIOGRATIS','TECNO15'];
+const fmt = n => 'Q ' + n.toLocaleString('en-US');
+const vip = clientes.filter(c => c[1] >= umbral);
+const pairs = [];
+vip.forEach((c, i) => cupones.forEach(k => pairs.push({ n: String(pairs.length + 1).padStart(2, '0'), cliente: c[0], gasto: fmt(c[1]), cupon: k, bg: i % 2 ? '#FFFFFF' : 'transparent' })));
+const cartSql = 'SELECT v.nombre, k.codigo\n  FROM (SELECT c.nombre, SUM(p.total) AS gasto\n          FROM clientes c\n          JOIN pedidos p ON p.cliente_id = c.id\n         GROUP BY c.nombre\n        HAVING SUM(p.total) >= ' + umbral + ') v\n CROSS JOIN cupones k;';
+return {
+ops, cur, v, rows, count: cur.list.length,
+nA: A.length, nB: B.length, nI: I.length, nAonly: Aonly.length, nBonly: Bonly.length,
+vennLabel: 'Diagrama de Venn: ' + cur.name + ', ' + cur.list.length + ' clientes',
+umbral, umbralLabel: fmt(umbral),
+setUmbral: (e) => this.setState({ umbral: Number(e.target.value) }),
+nV: vip.length, nPairs: pairs.length, pairs, cartSql
+};
+}
+}
+</script>
+</body>
+</html>

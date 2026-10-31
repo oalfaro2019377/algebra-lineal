@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>04 · Espacios vectoriales R² y R³</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&amp;family=Instrument+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#121314}
+a{color:#5CC9A7}a:hover{color:#8FE0C6}
+</style>
+</helmet>
+<div style="background: #121314; color: #EDECE8; font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 20px; line-height: 1.55; min-height: 100vh">
+
+<header style="position: sticky; top: 0; z-index: 10; background: rgba(18,19,20,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #2E2F33">
+<div style="max-width: 1376px; margin: 0 auto; padding: 0 48px; display: flex; flex-wrap: wrap; align-items: stretch; gap: 0 32px">
+<div style="display: flex; align-items: center; gap: 10px; min-height: 72px">
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; letter-spacing: -0.01em">TecnoModa</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; border: 1px solid #EDECE8; padding: 1px 5px; border-radius: 3px">GT</span>
+</div>
+<nav aria-label="Secciones" style="display: flex; flex: 1 1 auto; overflow-x: auto">
+<a href="Conjuntos.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #B8B7B2; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8E8D89">01</span>Conjuntos</a>
+<a href="Matrices.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #B8B7B2; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8E8D89">02</span>Matrices</a>
+<a href="Sistemas.dc.html" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid transparent; color: #B8B7B2; text-decoration: none; font-weight: 500; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8E8D89">03</span>Sistemas de ecuaciones</a>
+<a href="Vectores.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; padding: 0 18px; min-height: 72px; box-sizing: border-box; border-bottom: 2px solid #5CC9A7; color: #EDECE8; text-decoration: none; font-weight: 600; font-size: 16px; white-space: nowrap"><span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #5CC9A7">04</span>Espacios vectoriales</a>
+</nav>
+<div style="display: flex; align-items: center; font-size: 14px; color: #8E8D89; min-height: 72px">UMG · Grupo 1</div>
+</div>
+</header>
+
+<main style="max-width: 1376px; margin: 0 auto; padding: 88px 48px 128px; display: flex; flex-direction: column; gap: 104px">
+
+<section style="display: flex; flex-wrap: wrap; gap: 32px 48px; align-items: flex-end">
+<div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">PESTAÑA 04 / 04</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B8B7B2">Caso · motores de física</span>
+</div>
+<div style="flex: 999 1 720px; display: flex; flex-direction: column; gap: 20px">
+<h1 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 340; font-size: 96px; line-height: 0.95; letter-spacing: -0.025em">Espacios vectoriales <span style="font-style: italic; color: #5CC9A7">R² y R³</span></h1>
+<p style="margin: 0; max-width: 780px; font-size: 24px; line-height: 1.45; color: #B8B7B2">Unity y Unreal mueven cada objeto de la escena con cinco operaciones vectoriales. Las seguimos en un paquete de TecnoModa que cae, rebota en una rampa y vuelve a caer.</p>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; border-top: 1px solid #EDECE8; padding-top: 20px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">1 — OPERACIONES</span>
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.1">Cinco herramientas del motor</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 16px">
+
+<article style="background: #1A1B1D; border: 1px solid #2E2F33; border-radius: 6px; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">01 · SUMA</span>
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 32px; line-height: 1.2">u + v = (u₁+v₁, u₂+v₂, u₃+v₃)</span>
+<p style="margin: 0; font-size: 18px; color: #B8B7B2">Combina fuerzas: la velocidad del paquete más el empuje del viento da su velocidad real.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #B8B7B2; border-top: 1px solid #2E2F33; padding-top: 14px"><span>Unity · a + b</span><span style="color: #45464B">/</span><span>Unreal · A + B</span></div>
+</article>
+
+<article style="background: #1A1B1D; border: 1px solid #2E2F33; border-radius: 6px; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">02 · PRODUCTO POR ESCALAR</span>
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 32px; line-height: 1.2">k·v = (k v₁, k v₂, k v₃)</span>
+<p style="margin: 0; font-size: 18px; color: #B8B7B2">Escala sin girar: multiplicar la velocidad por Δt da cuánto se desplaza el objeto en un cuadro.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #B8B7B2; border-top: 1px solid #2E2F33; padding-top: 14px"><span>Unity · v * k</span><span style="color: #45464B">/</span><span>Unreal · V * k</span></div>
+</article>
+
+<article style="background: #1A1B1D; border: 1px solid #2E2F33; border-radius: 6px; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">03 · PRODUCTO PUNTO</span>
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 32px; line-height: 1.2">u·v = u₁v₁ + u₂v₂ + u₃v₃ = |u||v| cos θ</span>
+<p style="margin: 0; font-size: 18px; color: #B8B7B2">Mide alineación: si es negativo, el paquete se mueve hacia la superficie y hay que calcular el rebote.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #B8B7B2; border-top: 1px solid #2E2F33; padding-top: 14px"><span>Unity · Vector3.Dot</span><span style="color: #45464B">/</span><span>Unreal · FVector::DotProduct</span></div>
+</article>
+
+<article style="background: #1A1B1D; border: 1px solid #2E2F33; border-radius: 6px; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">04 · PRODUCTO CRUZ · SOLO R³</span>
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 28px; line-height: 1.25">u × v = (u₂v₃ − u₃v₂, u₃v₁ − u₁v₃, u₁v₂ − u₂v₁)</span>
+<p style="margin: 0; font-size: 18px; color: #B8B7B2">Da un vector perpendicular a ambos: así se obtiene la normal de la rampa a partir de dos de sus aristas.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #B8B7B2; border-top: 1px solid #2E2F33; padding-top: 14px"><span>Unity · Vector3.Cross</span><span style="color: #45464B">/</span><span>Unreal · FVector::CrossProduct</span></div>
+</article>
+
+<article style="background: #173A31; border: 1px solid #5CC9A7; border-radius: 6px; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #5CC9A7">05 · NORMALIZACIÓN</span>
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 32px; line-height: 1.2">v̂ = v / |v|,  |v̂| = 1</span>
+<p style="margin: 0; font-size: 18px; color: #EDECE8">Conserva solo la dirección. La fórmula de reflexión exige una normal unitaria n̂.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #B8B7B2; border-top: 1px solid #2E6B5A; padding-top: 14px"><span>Unity · v.normalized</span><span style="color: #45464B">/</span><span>Unreal · V.GetSafeNormal()</span></div>
+</article>
+
+</div>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(520px, 1fr)); gap: 48px">
+
+<div style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; border-top: 1px solid #EDECE8; padding-top: 20px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">2 — MOVIMIENTO</span>
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 40px; line-height: 1.1">Ecuación de posición</h2>
+</div>
+<figure style="margin: 0; border-bottom: 1px solid #2E2F33; padding: 20px 0 32px">
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 56px; line-height: 1.15; letter-spacing: -0.01em">r(t) = r₀ + v₀t + ½ a t²</span>
+</figure>
+<dl style="margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px 24px; font-size: 18px">
+<dt style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; color: #5CC9A7">r₀</dt><dd style="margin: 0; color: #B8B7B2">Posición inicial del paquete (suma de vectores).</dd>
+<dt style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; color: #5CC9A7">v₀t</dt><dd style="margin: 0; color: #B8B7B2">Velocidad inicial escalada por el tiempo.</dd>
+<dt style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; color: #5CC9A7">½at²</dt><dd style="margin: 0; color: #B8B7B2">Gravedad acumulada, con a = (0, 0, −9.81) m/s².</dd>
+</dl>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; border-top: 1px solid #EDECE8; padding-top: 20px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">3 — REBOTE</span>
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 40px; line-height: 1.1">Fórmula de reflexión</h2>
+</div>
+<figure style="margin: 0; border-bottom: 1px solid #2E2F33; padding: 20px 0 32px">
+<span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 56px; line-height: 1.15; letter-spacing: -0.01em">r = v − 2(v · n̂) n̂</span>
+</figure>
+<svg viewBox="0 0 560 200" role="img" aria-label="Vector v incide sobre una superficie con normal n y sale reflejado como r" style="width: 100%; height: auto; display: block">
+<path d="M40 170 L520 170" style="stroke: #8E8D89; stroke-width: 2"></path>
+<path d="M280 170 L280 40" style="stroke: #EDECE8; stroke-width: 2; stroke-dasharray: 6 6"></path>
+<path d="M276 48 L280 36 L284 48" style="fill: none; stroke: #EDECE8; stroke-width: 2"></path>
+<text x="292" y="50" style="font-family: 'Fraunces', serif; font-style: italic; font-size: 22px; fill: #EDECE8">n̂</text>
+<path d="M140 50 L272 164" style="stroke: #B8B7B2; stroke-width: 3"></path>
+<path d="M258 162 L274 166 L266 151" style="fill: none; stroke: #B8B7B2; stroke-width: 3"></path>
+<text x="168" y="92" style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; fill: #B8B7B2">v</text>
+<path d="M288 164 L420 50" style="stroke: #5CC9A7; stroke-width: 3"></path>
+<path d="M406 52 L422 48 L416 64" style="fill: none; stroke: #5CC9A7; stroke-width: 3"></path>
+<text x="390" y="100" style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; fill: #5CC9A7">r</text>
+<text x="40" y="194" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; fill: #8E8D89">superficie de la rampa</text>
+</svg>
+</div>
+
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: baseline; border-top: 1px solid #EDECE8; padding-top: 20px">
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; letter-spacing: 0.08em; color: #8E8D89">4 — VER</span>
+<h2 style="margin: 0; font-family: 'Fraunces', serif; font-weight: 400; font-size: 44px; line-height: 1.1">La trayectoria del paquete</h2>
+</div>
+<figure style="margin: 0; border: 1px solid #2E2F33; border-radius: 6px; overflow: hidden; background: #1A1B1D">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding: 12px 20px; border-bottom: 1px solid #2E2F33; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #B8B7B2">
+<span>GEOGEBRA 3D · iframe embebido · 100% × 600 px</span>
+<span>Arrastrar para rotar · rueda para acercar</span>
+</div>
+<svg viewBox="0 0 1200 600" role="img" aria-label="Ilustración de referencia: trayectoria en doble parábola con rebote sobre una rampa" style="width: 100%; height: auto; display: block; background: #141517">
+<g style="stroke: #2E2F33; stroke-width: 1">
+<path d="M120 520 L1080 520"></path><path d="M180 480 L1020 480"></path><path d="M240 440 L960 440"></path>
+<path d="M120 520 L240 440"></path><path d="M360 520 L420 440"></path><path d="M600 520 L600 440"></path><path d="M840 520 L780 440"></path><path d="M1080 520 L960 440"></path>
+</g>
+<polygon points="520,470 700,470 740,420 560,420" style="fill: #5CC9A7; fill-opacity: 0.14; stroke: #5CC9A7; stroke-width: 1.5"></polygon>
+<path d="M200 140 Q 420 60 620 445" style="fill: none; stroke: #EDECE8; stroke-width: 3"></path>
+<path d="M620 445 Q 760 220 920 500" style="fill: none; stroke: #5CC9A7; stroke-width: 3; stroke-dasharray: 10 8"></path>
+<circle cx="200" cy="140" r="8" style="fill: #EDECE8"></circle>
+<text x="150" y="124" style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; fill: #EDECE8">r₀</text>
+<circle cx="620" cy="445" r="9" style="fill: #5CC9A7; stroke: #141517; stroke-width: 3"></circle>
+<path d="M620 445 L640 360" style="stroke: #EDECE8; stroke-width: 2; stroke-dasharray: 5 5"></path>
+<text x="648" y="364" style="font-family: 'Fraunces', serif; font-style: italic; font-size: 22px; fill: #EDECE8">n̂</text>
+<text x="560" y="410" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; fill: #B8B7B2; text-anchor: end">impacto</text>
+<circle cx="920" cy="500" r="7" style="fill: #5CC9A7"></circle>
+<text x="300" y="96" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; fill: #B8B7B2">parábola 1 · caída</text>
+<text x="780" y="250" style="font-family: 'JetBrains Mono', monospace; font-size: 15px; fill: #5CC9A7">parábola 2 · tras r = v − 2(v·n̂)n̂</text>
+</svg>
+<figcaption style="display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 20px; border-top: 1px solid #2E2F33; font-size: 15px; color: #B8B7B2">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 20px; height: 0; border-top: 2px solid #EDECE8"></span>Antes del rebote</span>
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 20px; height: 0; border-top: 2px dashed #5CC9A7"></span>Después del rebote</span>
+<span>El visor real de GeoGebra reemplaza esta ilustración.</span>
+</figcaption>
+</figure>
+</section>
+
+<footer style="border-top: 1px solid #2E2F33; padding-top: 20px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #8E8D89">
+<span>← <a href="Sistemas.dc.html">03 Sistemas de ecuaciones</a></span>
+<span>Universidad Mariano Gálvez · Álgebra Lineal · Grupo 1</span>
+</footer>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

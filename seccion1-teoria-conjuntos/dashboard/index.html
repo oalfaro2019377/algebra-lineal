@@ -1,0 +1,413 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Teoría de Conjuntos: Tienda en Línea</title>
+<style>
+  /* Layout concept: scenario intro -> operation selector driving a live two-circle
+     Venn diagram (SVG regions toggled by class) with matching SQL + client list ->
+     a cartesian-product grid (VIP clients x cupones) below. */
+  :root{
+    color-scheme: light;
+    --bg:#f9f9f7; --surface:#fcfcfb; --surface-2:#f3f2ee;
+    --text:#0b0b0b; --text-2:#52514e; --muted:#898781;
+    --border:rgba(11,11,11,0.10); --grid:#e1e0d9;
+    --a:#2a78d6; --a-soft:rgba(42,120,214,0.14);
+    --b:#eb6834; --b-soft:rgba(235,104,52,0.14);
+    --int:#6250d6; --int-soft:rgba(98,80,214,0.16);
+    --vip:#1baf7a; --vip-soft:rgba(27,175,122,0.14);
+    --dim-fill:#e1e0d9; --dim-text:#898781;
+    --code-bg:#f3f2ee;
+    --font-display:"Fraunces", Georgia, serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --bg:#0d0d0d; --surface:#1a1a19; --surface-2:#202020;
+      --text:#f0efec; --text-2:#c3c2b7; --muted:#898781;
+      --border:rgba(255,255,255,0.10); --grid:#2c2c2a;
+      --a:#3987e5; --a-soft:rgba(57,135,229,0.20);
+      --b:#d95926; --b-soft:rgba(217,89,38,0.22);
+      --int:#9085e9; --int-soft:rgba(144,133,233,0.22);
+      --vip:#199e70; --vip-soft:rgba(25,158,112,0.20);
+      --dim-fill:#2c2c2a; --dim-text:#898781;
+      --code-bg:#161615;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --bg:#0d0d0d; --surface:#1a1a19; --surface-2:#202020;
+    --text:#f0efec; --text-2:#c3c2b7; --muted:#898781;
+    --border:rgba(255,255,255,0.10); --grid:#2c2c2a;
+    --a:#3987e5; --a-soft:rgba(57,135,229,0.20);
+    --b:#d95926; --b-soft:rgba(217,89,38,0.22);
+    --int:#9085e9; --int-soft:rgba(144,133,233,0.22);
+    --vip:#199e70; --vip-soft:rgba(25,158,112,0.20);
+    --dim-fill:#2c2c2a; --dim-text:#898781;
+    --code-bg:#161615;
+  }
+
+  *{box-sizing:border-box;}
+  body{background:var(--bg); color:var(--text); font-family:var(--font-body);}
+  .page{
+    max-width:980px; margin:0 auto;
+    padding-inline:max(16px, env(safe-area-inset-left,0px)) max(16px, env(safe-area-inset-right,0px));
+    padding-block:40px 64px;
+    display:flex; flex-direction:column; gap:28px;
+  }
+
+  .eyebrow{
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); font-weight:600;
+  }
+  h1{
+    font-family:var(--font-display); font-weight:600;
+    font-size:clamp(26px,4vw,38px); line-height:1.1; margin:10px 0 12px;
+    text-wrap:balance;
+  }
+  .lede{ color:var(--text-2); font-size:16px; line-height:1.55; max-width:68ch; margin:0;}
+  .lede code{ font-family:var(--font-mono); background:var(--code-bg); padding:1px 6px; border-radius:4px; font-size:14px;}
+
+  section, .scenario-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    padding:24px; display:flex; flex-direction:column; gap:16px;
+  }
+  h2{ font-family:var(--font-display); font-size:20px; font-weight:600; margin:0; }
+  h2 .step{ color:var(--muted); font-weight:500; font-size:14px; margin-right:8px;}
+  p{ margin:0; color:var(--text-2); line-height:1.55; font-size:15px; }
+
+  .set-defs{ display:flex; gap:12px; flex-wrap:wrap; }
+  .set-def{
+    flex:1 1 220px; border-radius:12px; padding:14px 16px;
+    font-size:14px; color:var(--text); line-height:1.5; border:1px solid var(--border);
+  }
+  .set-def strong{ font-weight:700;}
+  .set-def--a{ background:var(--a-soft); }
+  .set-def--b{ background:var(--b-soft); }
+  .set-label{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:6px; font-weight:700; font-size:13px;
+    margin-right:8px; color:#fff;
+  }
+  .set-def--a .set-label{ background:var(--a); }
+  .set-def--b .set-label{ background:var(--b); }
+
+  .op-selector{
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .op-btn{
+    font-family:var(--font-body); font-size:13.5px; font-weight:600;
+    padding:9px 14px; border-radius:999px; border:1px solid var(--border);
+    background:var(--surface-2); color:var(--text-2); cursor:pointer;
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .op-btn:hover{ color:var(--text); }
+  .op-btn[aria-selected="true"]{
+    background:var(--text); color:var(--surface); border-color:var(--text);
+  }
+  .op-btn:focus-visible{ outline:2px solid var(--a); outline-offset:2px; }
+
+  .venn-wrap{
+    display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;
+  }
+  .venn-fig{ flex:1 1 320px; min-width:0; }
+  svg{ width:100%; height:auto; display:block; }
+  .region{ transition: fill .25s ease, opacity .25s ease, stroke .25s ease; }
+  .region-dim{ fill:var(--dim-fill); }
+  .region-a-only.active{ fill:var(--a); opacity:.78; }
+  .region-b-only.active{ fill:var(--b); opacity:.78; }
+  .region-intersection.active{ fill:var(--int); opacity:.9; }
+  .venn-outline{ fill:none; stroke:var(--grid); stroke-width:2; }
+  .venn-label{ font-family:var(--font-body); font-size:14px; font-weight:700; fill:var(--text-2); }
+  .venn-count{ font-family:var(--font-body); font-size:22px; font-weight:700; fill:var(--text); }
+  .outside-dot{ fill:var(--muted); opacity:.55; }
+  .universe-label{ font-family:var(--font-body); font-size:11px; letter-spacing:.06em; text-transform:uppercase; fill:var(--muted); }
+
+  .result-panel{
+    flex:1 1 300px; min-width:0; display:flex; flex-direction:column; gap:14px;
+  }
+  .result-header{ display:flex; align-items:baseline; gap:10px; }
+  .result-count{ font-family:var(--font-display); font-size:40px; font-weight:600; font-variant-numeric:tabular-nums; }
+  .result-label{ color:var(--text-2); font-size:14px; }
+  .result-sql{
+    background:var(--code-bg); border:1px solid var(--border); border-radius:10px;
+    padding:12px 14px; overflow-x:auto;
+  }
+  .result-sql pre{ margin:0; }
+  .result-sql code{ font-family:var(--font-mono); font-size:12.5px; line-height:1.6; color:var(--text-2); white-space:pre; }
+  .result-list{
+    display:flex; flex-wrap:wrap; gap:6px; min-height:28px;
+  }
+  .chip{
+    font-size:12.5px; padding:5px 10px; border-radius:999px; background:var(--surface-2);
+    border:1px solid var(--border); color:var(--text);
+  }
+  .result-empty{ color:var(--muted); font-size:13px; font-style:italic; }
+
+  .cartesian-section table{ width:100%; border-collapse:collapse; min-width:520px; }
+  .cart-scroll{ overflow-x:auto; }
+  .cartesian-section th, .cartesian-section td{
+    border:1px solid var(--border); padding:10px 12px; font-size:13px; text-align:left;
+  }
+  .cartesian-section thead th{
+    background:var(--surface-2); color:var(--text-2); font-weight:700; white-space:nowrap;
+  }
+  .cartesian-section tbody th{
+    background:var(--vip-soft); color:var(--text); font-weight:700; white-space:nowrap;
+  }
+  .cartesian-section td{ background:var(--surface); color:var(--text-2); font-family:var(--font-mono); font-size:12px; }
+  .pair-cell{ transition: background .15s ease; }
+  .pair-cell:hover{ background:var(--vip-soft); color:var(--text); }
+  .cart-formula{
+    font-family:var(--font-mono); font-size:13px; background:var(--code-bg);
+    border:1px solid var(--border); border-radius:8px; padding:10px 14px; width:fit-content;
+    color:var(--text);
+  }
+
+  footer{ color:var(--muted); font-size:12.5px; line-height:1.6; border-top:1px solid var(--border); padding-top:18px; }
+  footer code{ font-family:var(--font-mono); }
+
+  @media (max-width: 640px){
+    .result-count{ font-size:32px; }
+    section, .scenario-card{ padding:18px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .region{ transition:none; }
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+
+<div class="page">
+  <header>
+    <div class="eyebrow">Álgebra Lineal · Proyecto de curso · Grupo 1</div>
+    <h1>Teoría de Conjuntos aplicada a una Tienda en Línea</h1>
+    <p class="lede">Sección 1 — Unión, Intersección, Diferencia, Diferencia simétrica y Producto Cartesiano, resueltas directamente sobre una base de datos PostgreSQL (<code>tienda_online</code>) con un escenario real de negocio.</p>
+  </header>
+
+  <section class="scenario-card">
+    <h2>El escenario</h2>
+    <p><strong>TecnoModa GT</strong> es una tienda en línea que vende en varias categorías. A partir del historial de compras de 20 clientes reales en la base de datos, se definen dos conjuntos:</p>
+    <div class="set-defs">
+      <div class="set-def set-def--a"><span class="set-label">A</span>Clientes que compraron algún producto de <strong>Electrónica</strong></div>
+      <div class="set-def set-def--b"><span class="set-label">B</span>Clientes que compraron algún producto de <strong>Ropa</strong></div>
+    </div>
+    <p>El universo <strong>U</strong> son los 20 clientes de la tienda. Tres de ellos (puntos grises en el diagrama) solo compraron en la categoría Hogar, por lo que no pertenecen ni a A ni a B.</p>
+  </section>
+
+  <section class="venn-section">
+    <h2><span class="step">Paso 1</span>Elige una operación de conjuntos</h2>
+    <div class="op-selector" role="tablist" aria-label="Operaciones de conjuntos" id="opSelector"></div>
+
+    <div class="venn-wrap">
+      <div class="venn-fig">
+        <svg viewBox="0 0 640 420" role="img" aria-labelledby="vennTitle">
+          <title id="vennTitle">Diagrama de Venn de clientes por categoría comprada</title>
+          <defs>
+            <clipPath id="clipA"><circle cx="255" cy="195" r="148"/></clipPath>
+            <clipPath id="clipB"><circle cx="385" cy="195" r="148"/></clipPath>
+            <mask id="maskNotB">
+              <rect x="0" y="0" width="640" height="420" fill="#fff"/>
+              <circle cx="385" cy="195" r="148" fill="#000"/>
+            </mask>
+            <mask id="maskNotA">
+              <rect x="0" y="0" width="640" height="420" fill="#fff"/>
+              <circle cx="255" cy="195" r="148" fill="#000"/>
+            </mask>
+          </defs>
+
+          <rect x="18" y="20" width="604" height="360" rx="18" class="venn-outline"/>
+          <text x="34" y="44" class="universe-label">U — Todos los clientes (20)</text>
+
+          <circle cx="255" cy="195" r="148" mask="url(#maskNotB)" class="region region-a-only" />
+          <circle cx="385" cy="195" r="148" mask="url(#maskNotA)" class="region region-b-only" />
+          <circle cx="255" cy="195" r="148" clip-path="url(#clipB)" class="region region-intersection" />
+
+          <text x="155" y="90" class="venn-label">A · Electrónica</text>
+          <text x="420" y="90" class="venn-label">B · Ropa</text>
+
+          <text x="185" y="205" text-anchor="middle" class="venn-count" id="countAOnly">6</text>
+          <text x="455" y="205" text-anchor="middle" class="venn-count" id="countBOnly">6</text>
+          <text x="320" y="205" text-anchor="middle" class="venn-count" id="countInt">5</text>
+
+          <g id="outsideDots">
+            <circle class="outside-dot" cx="70" cy="320" r="5"/>
+            <circle class="outside-dot" cx="95" cy="340" r="5"/>
+            <circle class="outside-dot" cx="60" cy="350" r="5"/>
+          </g>
+          <text x="70" y="300" class="universe-label">fuera de A ∪ B (3)</text>
+        </svg>
+      </div>
+
+      <div class="result-panel">
+        <div class="result-header">
+          <span class="result-count" id="resultCount">17</span>
+          <span class="result-label" id="resultLabel">clientes en A ∪ B</span>
+        </div>
+        <div class="result-sql">
+          <pre><code id="resultSql"></code></pre>
+        </div>
+        <div class="result-list" id="resultList"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cartesian-section">
+    <h2><span class="step">Paso 2</span>Producto Cartesiano — Clientes VIP × Cupones</h2>
+    <p>Conjunto <strong>V</strong> = clientes con gasto total mayor a Q1,500.00. Conjunto <strong>C</strong> = cupones activos de la tienda. El producto cartesiano V × C genera <strong>todas las combinaciones posibles</strong> cliente–cupón, el insumo exacto para una campaña de asignación personalizada.</p>
+    <div class="cart-formula">|V × C| = |V| · |C| = 3 · 4 = 12 pares ordenados</div>
+    <div class="cart-scroll">
+      <table id="cartTable"></table>
+    </div>
+  </section>
+
+  <footer>
+    PostgreSQL 17 · Base de datos <code>tienda_online</code> · Tablas: categorias, clientes, productos, pedidos, detalle_pedido, cupones · Scripts: <code>01_schema.sql</code>, <code>02_seed_data.sql</code>, <code>03_consultas_conjuntos.sql</code>. Todas las cifras de este dashboard provienen de consultas ejecutadas sobre esa base de datos.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const clientes = [
+    {id:1,nombre:'Juan Pérez',a:true,b:false},
+    {id:2,nombre:'María López',a:true,b:false},
+    {id:3,nombre:'Carlos Méndez',a:true,b:false},
+    {id:4,nombre:'Ana Gómez',a:true,b:false},
+    {id:5,nombre:'Luis Ramírez',a:true,b:false},
+    {id:6,nombre:'Sofía Castillo',a:true,b:false},
+    {id:7,nombre:'Pedro Herrera',a:false,b:true},
+    {id:8,nombre:'Lucía Torres',a:false,b:true},
+    {id:9,nombre:'Diego Morales',a:false,b:true},
+    {id:10,nombre:'Valeria Cruz',a:false,b:true},
+    {id:11,nombre:'Andrés Fuentes',a:false,b:true},
+    {id:12,nombre:'Camila Rodríguez',a:false,b:true},
+    {id:13,nombre:'Daniela Ortiz',a:true,b:true},
+    {id:14,nombre:'Roberto Jiménez',a:true,b:true},
+    {id:15,nombre:'Patricia Vásquez',a:true,b:true},
+    {id:16,nombre:'Fernando Castro',a:true,b:true},
+    {id:17,nombre:'Gabriela Soto',a:true,b:true},
+  ];
+
+  const vip = [
+    {nombre:'Sofía Castillo', gasto:'Q1,510.00'},
+    {nombre:'Camila Rodríguez', gasto:'Q1,700.00'},
+    {nombre:'Gabriela Soto', gasto:'Q1,730.00'},
+  ];
+  const cupones = [
+    {codigo:'DESC10', desc:'10% próxima compra'},
+    {codigo:'DESC20-ELEC', desc:'20% en Electrónica'},
+    {codigo:'ENVIOGRATIS', desc:'Envío gratis'},
+    {codigo:'REGALO2X1', desc:'2x1 en accesorios'},
+  ];
+
+  const SQL_BASE = `-- A = v_clientes_electronica   B = v_clientes_ropa\n\n`;
+  const operations = {
+    union: {
+      label:'Unión (A ∪ B)', regions:['a-only','b-only','intersection'],
+      filter:c=>c.a||c.b,
+      sql: SQL_BASE+`SELECT cliente_id, nombre FROM v_clientes_electronica\nUNION\nSELECT cliente_id, nombre FROM v_clientes_ropa;`,
+      unit:'clientes en A ∪ B'
+    },
+    intersection: {
+      label:'Intersección (A ∩ B)', regions:['intersection'],
+      filter:c=>c.a&&c.b,
+      sql: SQL_BASE+`SELECT cliente_id, nombre FROM v_clientes_electronica\nINTERSECT\nSELECT cliente_id, nombre FROM v_clientes_ropa;`,
+      unit:'clientes en A ∩ B'
+    },
+    diffAB: {
+      label:'Diferencia (A − B)', regions:['a-only'],
+      filter:c=>c.a&&!c.b,
+      sql: SQL_BASE+`SELECT cliente_id, nombre FROM v_clientes_electronica\nEXCEPT\nSELECT cliente_id, nombre FROM v_clientes_ropa;`,
+      unit:'clientes en A − B'
+    },
+    diffBA: {
+      label:'Diferencia (B − A)', regions:['b-only'],
+      filter:c=>c.b&&!c.a,
+      sql: SQL_BASE+`SELECT cliente_id, nombre FROM v_clientes_ropa\nEXCEPT\nSELECT cliente_id, nombre FROM v_clientes_electronica;`,
+      unit:'clientes en B − A'
+    },
+    symdiff: {
+      label:'Diferencia simétrica (A Δ B)', regions:['a-only','b-only'],
+      filter:c=>c.a!==c.b,
+      sql: SQL_BASE+`(SELECT cliente_id, nombre FROM v_clientes_electronica\n EXCEPT\n SELECT cliente_id, nombre FROM v_clientes_ropa)\nUNION\n(SELECT cliente_id, nombre FROM v_clientes_ropa\n EXCEPT\n SELECT cliente_id, nombre FROM v_clientes_electronica);`,
+      unit:'clientes en A Δ B'
+    }
+  };
+  const order = ['union','intersection','diffAB','diffBA','symdiff'];
+
+  const selector = document.getElementById('opSelector');
+  order.forEach((key,i)=>{
+    const btn = document.createElement('button');
+    btn.className='op-btn'; btn.type='button'; btn.role='tab';
+    btn.dataset.op = key;
+    btn.setAttribute('aria-selected', i===0 ? 'true':'false');
+    btn.textContent = operations[key].label;
+    btn.addEventListener('click', ()=>select(key));
+    selector.appendChild(btn);
+  });
+
+  const regionEls = {
+    'a-only': document.querySelector('.region-a-only'),
+    'b-only': document.querySelector('.region-b-only'),
+    'intersection': document.querySelector('.region-intersection'),
+  };
+
+  function select(key){
+    const op = operations[key];
+    [...selector.children].forEach(b=>b.setAttribute('aria-selected', b.dataset.op===key ? 'true':'false'));
+
+    Object.entries(regionEls).forEach(([name, el])=>{
+      el.classList.toggle('active', op.regions.includes(name));
+      el.classList.toggle('region-dim', !op.regions.includes(name));
+    });
+
+    const matches = clientes.filter(op.filter);
+    document.getElementById('resultCount').textContent = matches.length;
+    document.getElementById('resultLabel').textContent = op.unit;
+    document.getElementById('resultSql').textContent = op.sql;
+
+    const list = document.getElementById('resultList');
+    list.innerHTML = '';
+    if(matches.length === 0){
+      const p = document.createElement('div');
+      p.className='result-empty'; p.textContent='Conjunto vacío (∅) para esta operación.';
+      list.appendChild(p);
+    } else {
+      matches.forEach(c=>{
+        const chip = document.createElement('span');
+        chip.className='chip'; chip.textContent = c.nombre;
+        list.appendChild(chip);
+      });
+    }
+  }
+
+  select('union');
+
+  // Cartesian product grid
+  const table = document.getElementById('cartTable');
+  const thead = document.createElement('thead');
+  const headRow = document.createElement('tr');
+  headRow.appendChild(document.createElement('th'));
+  cupones.forEach(c=>{
+    const th = document.createElement('th'); th.textContent = c.codigo;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  vip.forEach(v=>{
+    const tr = document.createElement('tr');
+    const th = document.createElement('th'); th.textContent = v.nombre + ' (' + v.gasto + ')';
+    tr.appendChild(th);
+    cupones.forEach(c=>{
+      const td = document.createElement('td'); td.className='pair-cell';
+      td.textContent = '(' + v.nombre.split(' ')[0] + ', ' + c.codigo + ')';
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+})();
+</script>
